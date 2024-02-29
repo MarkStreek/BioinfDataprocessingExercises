@@ -1,0 +1,13 @@
+Building DAG of jobs...
+AmbiguousRuleException:
+Rules download and merge are ambiguous for the file A.merged.bam.
+Consider starting rule output with a unique prefix, constrain your wildcards, or use the ruleorder directive.
+Wildcards:
+	download: sample=A.merged
+	merge: sample=A
+Expected input files:
+	download: 
+	merge: A.bam
+Expected output files:
+	download: A.merged.bam
+	merge: A.merged.bam

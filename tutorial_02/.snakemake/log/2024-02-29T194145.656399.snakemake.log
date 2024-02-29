@@ -1,0 +1,3 @@
+Building DAG of jobs...
+CyclicGraphException in rule download in file /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/Snakefile, line 15:
+Cyclic dependency on rule download.

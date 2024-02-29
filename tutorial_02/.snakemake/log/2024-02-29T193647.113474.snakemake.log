@@ -1,0 +1,4 @@
+Building DAG of jobs...
+WildcardError in rule merge in file /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/rules/download.smk, line 16:
+Wildcards in input files cannot be determined from output files: (rule merge, line 29, /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/rules/download.smk)
+'sample'

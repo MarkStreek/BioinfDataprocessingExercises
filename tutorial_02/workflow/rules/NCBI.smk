@@ -12,4 +12,4 @@ rule get_fasta:
     wrapper:
         "v3.4.0/bio/entrez/efetch"
 
-snakemake -c 1 --use conda --conda-frontend conda
+# snakemake -c 1 --use-conda --conda-frontend conda

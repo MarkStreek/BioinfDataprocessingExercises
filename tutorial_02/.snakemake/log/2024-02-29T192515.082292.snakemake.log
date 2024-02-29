@@ -1,0 +1,143 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job stats:
+job                       count
+----------------------  -------
+all                           1
+download_samples_cofig        8
+total                         9
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb 29 19:25:15 2024]
+localrule download_samples_cofig:
+    output: I.bam
+    jobid: 8
+    reason: Missing output files: I.bam
+    wildcards: sample=I
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/I.bam
+[Thu Feb 29 19:25:15 2024]
+Finished job 8.
+1 of 9 steps (11%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb 29 19:25:15 2024]
+localrule download_samples_cofig:
+    output: F.bam
+    jobid: 5
+    reason: Missing output files: F.bam
+    wildcards: sample=F
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/F.bam
+[Thu Feb 29 19:25:15 2024]
+Finished job 5.
+2 of 9 steps (22%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb 29 19:25:15 2024]
+localrule download_samples_cofig:
+    output: A.bam
+    jobid: 1
+    reason: Missing output files: A.bam
+    wildcards: sample=A
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/A.bam
+[Thu Feb 29 19:25:16 2024]
+Finished job 1.
+3 of 9 steps (33%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb 29 19:25:16 2024]
+localrule download_samples_cofig:
+    output: E.bam
+    jobid: 4
+    reason: Missing output files: E.bam
+    wildcards: sample=E
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/E.bam
+[Thu Feb 29 19:25:16 2024]
+Finished job 4.
+4 of 9 steps (44%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb 29 19:25:16 2024]
+localrule download_samples_cofig:
+    output: D.bam
+    jobid: 3
+    reason: Missing output files: D.bam
+    wildcards: sample=D
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/D.bam
+[Thu Feb 29 19:25:17 2024]
+Finished job 3.
+5 of 9 steps (56%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb 29 19:25:17 2024]
+localrule download_samples_cofig:
+    output: G.bam
+    jobid: 6
+    reason: Missing output files: G.bam
+    wildcards: sample=G
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/G.bam
+[Thu Feb 29 19:25:17 2024]
+Finished job 6.
+6 of 9 steps (67%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb 29 19:25:17 2024]
+localrule download_samples_cofig:
+    output: B.bam
+    jobid: 2
+    reason: Missing output files: B.bam
+    wildcards: sample=B
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/B.bam
+[Thu Feb 29 19:25:17 2024]
+Finished job 2.
+7 of 9 steps (78%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb 29 19:25:17 2024]
+localrule download_samples_cofig:
+    output: H.bam
+    jobid: 7
+    reason: Missing output files: H.bam
+    wildcards: sample=H
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/H.bam
+[Thu Feb 29 19:25:18 2024]
+Finished job 7.
+8 of 9 steps (89%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb 29 19:25:18 2024]
+Job 0: Starting the pipeline!
+Reason: Input files updated by another job: I.bam, G.bam, E.bam, A.bam, H.bam, F.bam, B.bam, D.bam
+
+[Thu Feb 29 19:25:18 2024]
+Finished job 0.
+9 of 9 steps (100%) done
+Complete log: .snakemake/log/2024-02-29T192515.082292.snakemake.log

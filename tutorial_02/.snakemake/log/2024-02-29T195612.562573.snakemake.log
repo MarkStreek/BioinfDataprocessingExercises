@@ -1,0 +1,8 @@
+Building DAG of jobs...
+InputFunctionException in rule merge in file /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/Snakefile, line 22:
+Error:
+  AttributeError: 'Wildcards' object has no attribute 'sample'
+Wildcards:
+
+Traceback:
+  File "/Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/Snakefile", line 24, in <lambda> (rule merge, line 43, /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/Snakefile)

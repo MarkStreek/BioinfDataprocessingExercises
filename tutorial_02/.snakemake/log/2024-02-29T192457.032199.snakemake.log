@@ -1,0 +1,37 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job stats:
+job                       count
+----------------------  -------
+all                           1
+download_samples_cofig        8
+total                         9
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb 29 19:24:57 2024]
+localrule download_samples_cofig:
+    output: I
+    jobid: 8
+    reason: Missing output files: I
+    wildcards: sample=I
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/I
+[Thu Feb 29 19:24:57 2024]
+Error in rule download_samples_cofig:
+    jobid: 8
+    output: I
+    shell:
+        wget bioinf.nl/~ronald/snakemake/WC03/data/I
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-02-29T192457.032199.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.
