@@ -1,0 +1,19 @@
+"""
+Snakefile where you can find the first simple workflow pipeline. 
+This pipeline is composed of multiple rules. See the
+"""
+
+workdir: "/Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/",
+url = "https://bioinf.nl/~ronald/snakemake/"
+# url = "bioinf.nl/~ronald/snakemake/WC03/data/",
+sample = "test"
+
+rule all:
+    input:
+       # expand("{sample}.txt", sample=sample)
+       "results/test.fasta"
+    message:
+        "Starting the pipeline!"
+
+include: "rules/download.smk"
+include: "rules/NCBI.smk"

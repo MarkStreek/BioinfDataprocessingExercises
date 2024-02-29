@@ -1,0 +1,36 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job         count
+--------  -------
+all             1
+download        1
+total           2
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb 28 17:36:41 2024]
+localrule download:
+    output: ['A'].bam
+    jobid: 1
+    reason: Missing output files: ['A'].bam
+    wildcards: sample=['A']
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/['A'].bam
+[Wed Feb 28 17:36:41 2024]
+Error in rule download:
+    jobid: 1
+    output: ['A'].bam
+    shell:
+        wget bioinf.nl/~ronald/snakemake/WC03/data/['A'].bam
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-02-28T173641.528020.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

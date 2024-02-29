@@ -1,0 +1,37 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job         count
+--------  -------
+all             1
+download        1
+total           2
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb 29 18:39:15 2024]
+localrule download:
+    output: test.txt
+    jobid: 1
+    reason: Missing output files: test.txt
+    wildcards: sample=test
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget https://bioinf.nl/~ronald/snakemake/test.txt
+[Thu Feb 29 18:39:15 2024]
+Finished job 1.
+1 of 2 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb 29 18:39:15 2024]
+Job 0: Starting the pipeline!
+Reason: Input files updated by another job: test.txt
+
+[Thu Feb 29 18:39:15 2024]
+Finished job 0.
+2 of 2 steps (100%) done
+Complete log: .snakemake/log/2024-02-29T183915.444013.snakemake.log

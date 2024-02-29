@@ -1,0 +1,23 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job         count
+--------  -------
+all             1
+download        1
+total           2
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Wed Feb 28 17:39:47 2024]
+localrule download:
+    output: /results/test.txt
+    jobid: 1
+    reason: Missing output files: /results/test.txt
+    wildcards: sample=test
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget https://bioinf.nl/~ronald/snakemake//results/test.txt

@@ -1,0 +1,5 @@
+Building DAG of jobs...
+MissingInputException in rule all in file /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/Snakefile, line 10:
+Missing input files for rule all:
+    affected files:
+        ['test'].txt
