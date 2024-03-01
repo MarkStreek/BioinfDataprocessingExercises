@@ -1,0 +1,38 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job stats:
+job               count
+--------------  -------
+all                   1
+samtools_merge        1
+total                 2
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb 29 20:30:28 2024]
+localrule samtools_merge:
+    input: A.bam, B.bam, D.bam, E.bam, F.bam, G.bam, H.bam, I.bam, J.bam
+    output: merged.bam
+    jobid: 1
+    reason: Missing output files: merged.bam
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+RuleException:
+CalledProcessError in file /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/Snakefile, line 29:
+Command 'set -euo pipefail;  /Users/mvandestreek/miniconda3/envs/new_snake_env_les_1/bin/python3.12 /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/.snakemake/scripts/tmpsry0ugj1.wrapper.py' returned non-zero exit status 1.
+[Thu Feb 29 20:30:29 2024]
+Error in rule samtools_merge:
+    jobid: 1
+    input: A.bam, B.bam, D.bam, E.bam, F.bam, G.bam, H.bam, I.bam, J.bam
+    output: merged.bam
+    conda-env: /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/.snakemake/conda/1e4519dd03ef09f301d4f04b42038d2d_
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-02-29T203028.328231.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

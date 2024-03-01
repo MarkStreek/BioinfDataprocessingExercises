@@ -1,0 +1,90 @@
+Building DAG of jobs...
+shared_storage_local_copies: True
+remote_exec: False
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job         count
+--------  -------
+all             1
+download        1
+total           2
+
+Resources before job selection: {'_cores': 1, '_nodes': 9223372036854775807}
+Ready jobs (1)
+Select jobs to execute...
+Using greedy selector because only single job has to be scheduled.
+Selected jobs (1)
+Resources after job selection: {'_cores': 0, '_nodes': 9223372036854775806}
+Execute 1 jobs...
+
+[Thu Feb 29 20:21:10 2024]
+localrule download:
+    output: A.bam, B.bam, D.bam, E.bam, F.bam, G.bam, H.bam, I.bam
+    jobid: 1
+    reason: Missing output files: H.bam, B.bam, D.bam, F.bam, E.bam, I.bam, A.bam, G.bam
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+Full Traceback (most recent call last):
+  File "/Users/mvandestreek/miniconda3/envs/new_snake_env_les_1/lib/python3.12/site-packages/snakemake/executors/local.py", line 420, in run_wrapper
+    run(
+  File "/Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/Snakefile", line 56, in __rule_download
+  File "/Users/mvandestreek/miniconda3/envs/new_snake_env_les_1/lib/python3.12/site-packages/snakemake/shell.py", line 297, in __new__
+    raise sp.CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command 'set -euo pipefail;  wget bioinf.nl/~ronald/snakemake/WC03/data/A.bam B.bam D.bam E.bam F.bam G.bam H.bam I.bam' returned non-zero exit status 4.
+
+Full Traceback (most recent call last):
+  File "/Users/mvandestreek/miniconda3/envs/new_snake_env_les_1/lib/python3.12/site-packages/snakemake/executors/local.py", line 420, in run_wrapper
+    run(
+  File "/Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/Snakefile", line 56, in __rule_download
+  File "/Users/mvandestreek/miniconda3/envs/new_snake_env_les_1/lib/python3.12/site-packages/snakemake/shell.py", line 297, in __new__
+    raise sp.CalledProcessError(retcode, cmd)
+subprocess.CalledProcessError: Command 'set -euo pipefail;  wget bioinf.nl/~ronald/snakemake/WC03/data/A.bam B.bam D.bam E.bam F.bam G.bam H.bam I.bam' returned non-zero exit status 4.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/Users/mvandestreek/miniconda3/envs/new_snake_env_les_1/lib/python3.12/site-packages/snakemake/executors/local.py", line 259, in _callback
+    raise ex
+  File "/Users/mvandestreek/miniconda3/envs/new_snake_env_les_1/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/mvandestreek/miniconda3/envs/new_snake_env_les_1/lib/python3.12/site-packages/snakemake/executors/local.py", line 245, in cached_or_run
+    run_func(*args)
+  File "/Users/mvandestreek/miniconda3/envs/new_snake_env_les_1/lib/python3.12/site-packages/snakemake/executors/local.py", line 456, in run_wrapper
+    raise RuleException(
+snakemake.exceptions.RuleException: CalledProcessError in file /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/Snakefile, line 38:
+Command 'set -euo pipefail;  wget bioinf.nl/~ronald/snakemake/WC03/data/A.bam B.bam D.bam E.bam F.bam G.bam H.bam I.bam' returned non-zero exit status 4.
+
+RuleException:
+CalledProcessError in file /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/Snakefile, line 38:
+Command 'set -euo pipefail;  wget bioinf.nl/~ronald/snakemake/WC03/data/A.bam B.bam D.bam E.bam F.bam G.bam H.bam I.bam' returned non-zero exit status 4.
+[Thu Feb 29 20:21:11 2024]
+Error in rule download:
+    jobid: 1
+    output: A.bam, B.bam, D.bam, E.bam, F.bam, G.bam, H.bam, I.bam
+    shell:
+        wget bioinf.nl/~ronald/snakemake/WC03/data/A.bam B.bam D.bam E.bam F.bam G.bam H.bam I.bam
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job download since they might be corrupted:
+A.bam
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-02-29T202110.499303.snakemake.log
+unlocking
+removing lock
+removing lock
+removed all locks
+Full Traceback (most recent call last):
+  File "/Users/mvandestreek/miniconda3/envs/new_snake_env_les_1/lib/python3.12/site-packages/snakemake/cli.py", line 1975, in args_to_api
+    dag_api.execute_workflow(
+  File "/Users/mvandestreek/miniconda3/envs/new_snake_env_les_1/lib/python3.12/site-packages/snakemake/api.py", line 588, in execute_workflow
+    workflow.execute(
+  File "/Users/mvandestreek/miniconda3/envs/new_snake_env_les_1/lib/python3.12/site-packages/snakemake/workflow.py", line 1265, in execute
+    raise WorkflowError("At least one job did not complete successfully.")
+snakemake_interface_common.exceptions.WorkflowError: At least one job did not complete successfully.
+
+WorkflowError:
+At least one job did not complete successfully.

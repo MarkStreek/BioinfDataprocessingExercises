@@ -1,0 +1,8 @@
+# Config file of the project
+
+# Defining the default working directory
+working_dir : /Users/mvandestreek/HANZEHOGESCHOOL/
+
+# Samples
+SAMPLE :
+  - SRR1234567

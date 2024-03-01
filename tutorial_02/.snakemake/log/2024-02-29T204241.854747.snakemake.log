@@ -1,0 +1,26 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job stats:
+job               count
+--------------  -------
+all                   1
+download              1
+samtools_merge        1
+total                 3
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb 29 20:42:41 2024]
+localrule download:
+    output: A.bam, B.bam, D.bam, E.bam, F.bam, G.bam, H.bam, I.bam
+    jobid: 2
+    reason: Missing output files: A.bam, G.bam, B.bam, D.bam, I.bam, E.bam, H.bam, F.bam
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+RuleException in rule download in file /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/Snakefile, line 16:
+NameError: The name 'sample' is unknown in this context. Please make sure that you defined that variable. Also note that braces not used for variable access have to be escaped by repeating them, i.e. {{print $1}}, when formatting the following:
+wget {url}{sample}.bam

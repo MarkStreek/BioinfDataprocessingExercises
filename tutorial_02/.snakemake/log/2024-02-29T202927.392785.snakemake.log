@@ -1,0 +1,35 @@
+Building DAG of jobs...
+Your conda installation is not configured to use strict channel priorities. This is however crucial for having robust and correct environments (for details, see https://conda-forge.org/docs/user/tipsandtricks.html). Please consider to configure strict priorities by executing 'conda config --set channel_priority strict'.
+Creating conda environment https://github.com/snakemake/snakemake-wrappers/raw/v3.4.0/bio/samtools/merge/environment.yaml...
+Downloading and installing remote packages.
+CreateCondaEnvironmentException:
+Could not create conda environment from /var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T/tmpt5xlq1en.yaml:
+Command:
+conda env create --quiet --file "/Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/.snakemake/conda/1e4519dd03ef09f301d4f04b42038d2d_.yaml" --prefix "/Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/.snakemake/conda/1e4519dd03ef09f301d4f04b42038d2d_"
+Output:
+Retrieving notices: ...working... done
+Channels:
+ - conda-forge
+ - bioconda
+Platform: osx-arm64
+Collecting package metadata (repodata.json): ...working... done
+Solving environment: ...working... failed
+
+PackagesNotFoundError: The following packages are not available from current channels:
+
+  - samtools=1.19.2*
+
+Current channels:
+
+  - https://conda.anaconda.org/conda-forge/osx-arm64
+  - https://conda.anaconda.org/bioconda/osx-arm64
+
+To search for alternate channels that may provide the conda package you're
+looking for, navigate to
+
+    https://anaconda.org
+
+and use the search bar at the top of the page.
+
+
+

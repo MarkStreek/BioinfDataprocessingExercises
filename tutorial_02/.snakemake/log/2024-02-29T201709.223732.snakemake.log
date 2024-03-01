@@ -1,0 +1,4 @@
+Building DAG of jobs...
+WildcardError in rule samtools_merge in file /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/Snakefile, line 42:
+Wildcards in input files cannot be determined from output files: (rule samtools_merge, line 63, /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/Snakefile)
+'sample'

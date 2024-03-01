@@ -1,0 +1,39 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 8
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job stats:
+job               count
+--------------  -------
+all                   1
+download              1
+samtools_merge        1
+total                 3
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Feb 29 20:43:06 2024]
+localrule download:
+    output: A.bam, B.bam, D.bam, E.bam, F.bam, G.bam, H.bam, I.bam
+    jobid: 2
+    reason: Missing output files: D.bam, E.bam, B.bam, G.bam, F.bam, A.bam, I.bam, H.bam
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/A.bam B.bam D.bam E.bam F.bam G.bam H.bam I.bam
+[Thu Feb 29 20:43:08 2024]
+Error in rule download:
+    jobid: 2
+    output: A.bam, B.bam, D.bam, E.bam, F.bam, G.bam, H.bam, I.bam
+    shell:
+        wget bioinf.nl/~ronald/snakemake/WC03/data/A.bam B.bam D.bam E.bam F.bam G.bam H.bam I.bam
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job download since they might be corrupted:
+A.bam
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-02-29T204306.710455.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

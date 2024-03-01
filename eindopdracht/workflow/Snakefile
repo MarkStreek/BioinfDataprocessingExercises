@@ -1,0 +1,21 @@
+"""
+The main file of this project. All the rules will be imported from seperate files.
+Goal: 
+    Create a de novo assembly from paired end sequences with quality assesments
+Author: 
+    Mark van de Streek
+Date: 
+    2024-03-16
+Copyright: 
+    BFV3 2023-2024
+"""
+
+# Setting the working directory
+configfile: "config/config.yaml",
+workdir: config["workdir"],
+
+rule all:
+    input:
+        expand("data/{sample}.fastq", sample=config["samples"])
+
+include: "rules/dataAccesion.smk"

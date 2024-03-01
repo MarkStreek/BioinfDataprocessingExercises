@@ -1,11 +1,9 @@
 samples:
-    A : 'A.bam'
-    B : 'B.bam'
-    D : 'D.bam'
-    E : 'E.bam'
-    F : 'F.bam'
-    G : 'G.bam'
-    H : 'H.bam'
-    I : 'J.bam'
-
-url: bioinf.nl/~ronald/snakemake/WC03/data/
+    - A
+    - B
+    - D
+    - E
+    - F
+    - G
+    - H
+    - I

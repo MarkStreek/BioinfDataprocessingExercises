@@ -1,0 +1,159 @@
+Building DAG of jobs...
+Using shell: /bin/bash
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Conda environments: ignored
+Job stats:
+job               count
+--------------  -------
+all                   1
+download              8
+samtools_merge        1
+total                10
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Mar  1 11:24:35 2024]
+localrule download:
+    output: I.bam
+    jobid: 9
+    reason: Missing output files: I.bam
+    wildcards: sample=I
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/I.bam
+[Fri Mar  1 11:24:35 2024]
+Finished job 9.
+1 of 10 steps (10%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Mar  1 11:24:35 2024]
+localrule download:
+    output: G.bam
+    jobid: 7
+    reason: Missing output files: G.bam
+    wildcards: sample=G
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/G.bam
+[Fri Mar  1 11:24:36 2024]
+Finished job 7.
+2 of 10 steps (20%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Mar  1 11:24:36 2024]
+localrule download:
+    output: E.bam
+    jobid: 5
+    reason: Missing output files: E.bam
+    wildcards: sample=E
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/E.bam
+[Fri Mar  1 11:24:36 2024]
+Finished job 5.
+3 of 10 steps (30%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Mar  1 11:24:36 2024]
+localrule download:
+    output: B.bam
+    jobid: 3
+    reason: Missing output files: B.bam
+    wildcards: sample=B
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/B.bam
+[Fri Mar  1 11:24:36 2024]
+Finished job 3.
+4 of 10 steps (40%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Mar  1 11:24:36 2024]
+localrule download:
+    output: D.bam
+    jobid: 4
+    reason: Missing output files: D.bam
+    wildcards: sample=D
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/D.bam
+[Fri Mar  1 11:24:37 2024]
+Finished job 4.
+5 of 10 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Mar  1 11:24:37 2024]
+localrule download:
+    output: A.bam
+    jobid: 2
+    reason: Missing output files: A.bam
+    wildcards: sample=A
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/A.bam
+[Fri Mar  1 11:24:37 2024]
+Finished job 2.
+6 of 10 steps (60%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Mar  1 11:24:37 2024]
+localrule download:
+    output: H.bam
+    jobid: 8
+    reason: Missing output files: H.bam
+    wildcards: sample=H
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/H.bam
+[Fri Mar  1 11:24:37 2024]
+Finished job 8.
+7 of 10 steps (70%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Mar  1 11:24:37 2024]
+localrule download:
+    output: F.bam
+    jobid: 6
+    reason: Missing output files: F.bam
+    wildcards: sample=F
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+wget bioinf.nl/~ronald/snakemake/WC03/data/F.bam
+[Fri Mar  1 11:24:37 2024]
+Finished job 6.
+8 of 10 steps (80%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Fri Mar  1 11:24:37 2024]
+localrule samtools_merge:
+    input: A.bam, B.bam, D.bam, E.bam, F.bam, G.bam, H.bam, I.bam
+    output: merged.bam
+    jobid: 1
+    reason: Missing output files: merged.bam; Input files updated by another job: H.bam, G.bam, A.bam, D.bam, B.bam, F.bam, E.bam, I.bam
+    resources: tmpdir=/var/folders/7g/mh6jk4p54_v368myk7s9h_nh0000gn/T
+
+RuleException:
+CalledProcessError in file /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/workflow/Snakefile, line 28:
+Command 'set -euo pipefail;  /Users/mvandestreek/miniconda3/envs/new_snake_env_les_1/bin/python3.12 /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/.snakemake/scripts/tmp83j6oku5.wrapper.py' returned non-zero exit status 1.
+[Fri Mar  1 11:24:38 2024]
+Error in rule samtools_merge:
+    jobid: 1
+    input: A.bam, B.bam, D.bam, E.bam, F.bam, G.bam, H.bam, I.bam
+    output: merged.bam
+    conda-env: /Users/mvandestreek/Library/CloudStorage/OneDrive-HanzehogeschoolGroningen/HanzeHogeschool/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/tutorial_02/.snakemake/conda/1e4519dd03ef09f301d4f04b42038d2d_
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-03-01T112435.290808.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.
