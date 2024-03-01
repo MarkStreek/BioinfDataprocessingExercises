@@ -12,10 +12,10 @@ Copyright:
 
 # Setting the working directory
 configfile: "config/config.yaml",
-workdir: config["workdir"],
+workdir: config['workdir'],
 
 rule all:
     input:
-        expand("data/{sample}.fastq", sample=config["samples"])
+        expand("data/{sample}.fastq", sample=config['samples'])
 
 include: "rules/dataAccesion.smk"

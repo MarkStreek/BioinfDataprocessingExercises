@@ -1,8 +1,8 @@
 # Config file of the project
 
 # Defining the default working directory
-working_dir : /Users/mvandestreek/HANZEHOGESCHOOL/
+workdir : /homes/mvandestreek/HANZEHOGESCHOOL GRONINGEN/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/eindopdracht
 
 # Samples
-SAMPLE :
-  - SRR1234567
+samples :
+  - SRR2541813
