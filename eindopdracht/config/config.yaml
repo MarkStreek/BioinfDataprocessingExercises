@@ -5,4 +5,7 @@ workdir : /homes/mvandestreek/HANZEHOGESCHOOL GRONINGEN/2023-2024/thema11/datapr
 
 # Samples
 samples :
-  - SRR2541813
+  - SRR2541813_1
+  - SRR2541813_2
+
+samples_directory : /homes/mvandestreek/

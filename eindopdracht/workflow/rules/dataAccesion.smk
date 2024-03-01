@@ -2,6 +2,6 @@
 
 rule download_samples:
     output:
-        "data/{sample}.fastq"
+        "results/{sample}.fastq"
     shell:
-        "prefetch {sample} -O ./data"
+        "fasterq-dump {wildcards.sample} -O ./data"
