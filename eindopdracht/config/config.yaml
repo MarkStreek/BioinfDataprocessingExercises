@@ -2,10 +2,11 @@
 
 # Defining the default working directory
 workdir : /homes/mvandestreek/HANZEHOGESCHOOL GRONINGEN/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/eindopdracht
+samples_directory : /homes/mvandestreek/
 
 # Samples
 samples :
   - SRR2541813_1
   - SRR2541813_2
 
-samples_directory : /homes/mvandestreek/
+
