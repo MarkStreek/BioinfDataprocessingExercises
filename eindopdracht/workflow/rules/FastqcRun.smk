@@ -18,14 +18,13 @@ configfile: "config/config.yaml",
 workdir: config['workdir'],
 
 rule run_fastqc:
-    message:
-        "Running FastQC on {input}..."
     input:
-        config['samples_directory'] + "/{sample}.fastq",
+        "/homes/mvandestreek/{sample}.fastq",
+        # TODO: config["samples_directory"] + "{sample}.fastq",
     output:
         html="results/{sample}_fastqc.html",
-        zip="results/{sample}_fastqc.zip",
+        zip="results/{sample}_fastqc.zip"
     resources:
-        mem_mb = 1024,
+        mem_mb = 1024
     wrapper:
-        "v3.4.1/bio/fastqc",
+        "v3.4.1/bio/fastqc"
