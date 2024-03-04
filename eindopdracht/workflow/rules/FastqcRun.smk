@@ -27,5 +27,7 @@ rule run_fastqc:
     output:
         html="results/{sample}_fastqc.html",
         zip="results/{sample}_fastqc.zip"
-    shell:
-        "fastqc {input} --outdir results/"
+    resources:
+        mem_mb = 1024
+    wrapper:
+        "v3.4.1/bio/fastqc"
