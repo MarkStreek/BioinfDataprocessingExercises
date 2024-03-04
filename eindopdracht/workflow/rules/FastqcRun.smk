@@ -23,7 +23,8 @@ workdir: config['workdir'],
 
 rule run_fastqc:
     input:
-        expand("/homes/mvandestreek/{sample}.fastq", sample=config['samples']),
+        #expand("/homes/mvandestreek/{sample}.fastq", sample=config['samples']),
+        "/homes/mvandestreek/{sample}.fastq",
     output:
         html="results/{sample}_fastqc.html",
         zip="results/{sample}_fastqc.zip"
