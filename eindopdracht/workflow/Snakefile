@@ -8,6 +8,9 @@ Date:
     2024-03-16
 Copyright: 
     BFV3 2023-2024
+
+Run pipeline:
+snakemake -c 1 --use-conda --conda-frontend conda
 """
 
 configfile: "config/config.yaml",
@@ -15,8 +18,34 @@ workdir: config['workdir'],
 
 rule all:
     input:
-        expand("results/{sample}_fastqc.html", sample=config['samples']),
-        expand("results/{sample}_fastqc.zip", sample=config['samples']),
+        expand("results/fastqc/{sample}_fastqc.html", sample=config['samples']),
+        expand("results/fastx/filtered_{sample}.fastq", sample=config['samples']),
+        expand("results/fastx/{sample}_FASTX.txt", sample=config['samples']),
 
-include: "rules/dataAccesion.smk"
-include: "rules/FastqcRun.smk"
+rule fastQC:
+    input:
+        config["samples_directory"] + "{sample}.fastq",
+    output:
+        "results/fastqc/{sample}_fastqc.html",
+        "results/fastqc/{sample}_fastqc.zip",
+    message:
+        "Running FastQC on {input}"
+    conda:
+        "../envs/FASTQC.yaml"
+    params:
+        threads=config['threads']
+    shell:
+        "fastqc -t {params.threads} {input} -o results/fastqc/"
+
+rule fastx_toolkit:
+    input:
+        config["samples_directory"] + "{sample}.fastq",
+    output:
+        "results/fastx/filtered_{sample}.fastq",
+        "results/fastx/{sample}_FASTX.txt",
+    message:
+        "Running fastx_toolkit on {input}"
+    conda:
+        "../envs/FASTX_TOOLKIT.yaml"
+    shell:
+        "fastq_quality_filter -v -q 20 -p 75 -i {input} -o filtered_{output} > {output}_FASTX.txt"

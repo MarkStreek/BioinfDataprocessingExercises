@@ -1,0 +1,6 @@
+name: Conda environment for the FASTQC tool
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - fastqc=0.11.9

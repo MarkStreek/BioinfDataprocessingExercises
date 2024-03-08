@@ -1,0 +1,6 @@
+name: FASTX_TOOLKIT conda environment
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - fastx_toolkit

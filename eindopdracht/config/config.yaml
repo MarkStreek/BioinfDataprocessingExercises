@@ -6,7 +6,11 @@ samples_directory : /homes/mvandestreek/
 
 # Samples
 samples :
+  - SRR2541811_1
+  - SRR2541811_2
   - SRR2541813_1
   - SRR2541813_2
+
+threads : 20
 
 
