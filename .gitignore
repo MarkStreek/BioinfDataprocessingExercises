@@ -50,3 +50,5 @@ rsconnect/
 *.zip
 *.html
 .snakemake/
+*.fastq
+results/

@@ -20,7 +20,6 @@ rule all:
     input:
         expand("results/fastqc/{sample}_fastqc.html", sample=config['samples']),
         expand("results/fastx/filtered_{sample}.fastq", sample=config['samples']),
-        expand("results/fastx/{sample}_FASTX.txt", sample=config['samples']),
 
 rule fastQC:
     input:
@@ -38,14 +37,18 @@ rule fastQC:
         "fastqc -t {params.threads} {input} -o results/fastqc/"
 
 rule fastx_toolkit:
+    """
+    This tool has verbose specified, but runs first all operations, 
+    and then prints the output.
+    """
     input:
-        config["samples_directory"] + "{sample}.fastq",
+        config["samples_directory"] + "{sample}.fastq"
     output:
-        "results/fastx/filtered_{sample}.fastq",
-        "results/fastx/{sample}_FASTX.txt",
+        "results/fastx/filtered_{sample}.fastq"
     message:
         "Running fastx_toolkit on {input}"
     conda:
         "../envs/FASTX_TOOLKIT.yaml"
     shell:
-        "fastq_quality_filter -v -q 20 -p 75 -i {input} -o filtered_{output} > {output}_FASTX.txt"
+        "fastq_quality_filter -v -q 20 -p 75 -i {input} -o {output}"
+
