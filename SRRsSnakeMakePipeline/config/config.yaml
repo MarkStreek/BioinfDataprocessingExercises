@@ -1,7 +1,7 @@
 # Config file of the project
 
 # Defining the default working directory
-workdir : /homes/mvandestreek/HANZEHOGESCHOOL GRONINGEN/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/eindopdracht
+workdir : /homes/mvandestreek/HANZEHOGESCHOOL GRONINGEN/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/SRRsSnakeMakePipeline
 samples_directory : /homes/mvandestreek/
 
 # Samples

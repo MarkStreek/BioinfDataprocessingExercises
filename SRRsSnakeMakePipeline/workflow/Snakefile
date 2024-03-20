@@ -52,3 +52,15 @@ rule fastx_toolkit:
     shell:
         "fastq_quality_filter -v -q 20 -p 75 -i {input} -o {output}"
 
+rule trimmomatic:
+    """
+    Rule that runs Trimmomatic on the FASTX toolkit output files
+    """
+    input:
+        "results/fastx/filtered_{sample}.fastq"
+    output:
+        ""
+    message:
+        "Running Trimmomatic on {input}"
+    
+    # USE rimmomatic-0.39/adapters/TruSeq3-SE.fa when RUNNING TRIMMOMATIC

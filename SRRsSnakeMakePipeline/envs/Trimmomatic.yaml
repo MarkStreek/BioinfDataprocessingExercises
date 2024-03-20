@@ -1,0 +1,6 @@
+name: Trimmomatic conda environment
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - trimmomatic

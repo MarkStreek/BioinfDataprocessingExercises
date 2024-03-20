@@ -1,3 +1,3 @@
-# Tutorial 1
+# SRRsSnakeMakePipeline
 
-Simple SNAKEMAKE workflow from lesson 1/2
+
