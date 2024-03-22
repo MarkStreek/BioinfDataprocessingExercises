@@ -52,17 +52,20 @@ rule fastx_toolkit:
     and then prints the output.
     """
     input:
-        config["samples_directory"] + "{sample}_1.fastq",
-        config["samples_directory"] + "{sample}_2.fastq"
+        s1=config["samples_directory"] + "{sample}_1.fastq",
+        s2=config["samples_directory"] + "{sample}_2.fastq"
     output:
-        "results/fastx/filtered_{sample}_1.fastq",
-        "results/fastx/filtered_{sample}_2.fastq"
+        s1="results/fastx/filtered_{sample}_1.fastq",
+        s2="results/fastx/filtered_{sample}_2.fastq"
     message:
         "Running fastx_toolkit on {input}"
     conda:
         "../envs/FASTX_TOOLKIT.yaml"
     shell:
-        "fastq_quality_filter -v -q 20 -p 75 -i {input} -o {output}"
+        """
+        fastq_quality_filter -v -q 20 -p 75 -i {input.s1} -o {output.s1}
+        fastq_quality_filter -v -q 20 -p 75 -i {input.s2} -o {output.s2}
+        """
 
 rule trimmomatic_pe:
     input:
