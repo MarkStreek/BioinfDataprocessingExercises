@@ -23,7 +23,7 @@ rule all:
         expand("results/trimmomatic/{sample}_1_paired_trimmed.fastq", sample=config['samples']),
         expand("results/trimmomatic/{sample}_2_paired_trimmed.fastq", sample=config['samples']),
         expand("results/trimmomatic/{sample}_1_unpaired_trimmed.fastq", sample=config['samples']),
-        expand("results/trimmomatic/{sample}_2unpaired_trimmed.fastq", sample=config['samples'])
+        expand("results/trimmomatic/{sample}_2_unpaired_trimmed.fastq", sample=config['samples'])
 
 rule fastQC:
     input:
@@ -90,7 +90,7 @@ rule trimmomatic_pe:
         r2="results/fastx/filtered_{sample}_2.fastq"
     output:
         r1="results/trimmomatic/{sample}_1_paired_trimmed.fastq",
-        r2="results/trimmomatic/{sample}_1_paired_trimmed.fastq",
+        r2="results/trimmomatic/{sample}_2_paired_trimmed.fastq",
         r1_unpaired="results/trimmomatic/{sample}_1_unpaired_trimmed.fastq",
         r2_unpaired="results/trimmomatic/{sample}_2_unpaired_trimmed.fastq"
     log:
