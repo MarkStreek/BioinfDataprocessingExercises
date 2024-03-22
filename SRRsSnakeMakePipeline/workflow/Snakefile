@@ -71,6 +71,8 @@ rule trimmomatic:
         "logs/trimmomatic/{sample}.log"
     message:
         "Running Trimmomatic on {input}"
+    conda:
+        "../envs/Trimmomatic.yaml"
     shell:
         "java -Xmx1G -jar trimmomatic-0.38.jar PE -phred33 -threads 16 -trimlog {log} {input} {output.pairded_end_1} {output.unpaired_end_1} {output.pairded_end_2} {output.unpaired_end_2} "
         "ILLUMINACLIP:../envs/trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 SLIDINGWINDOW:5:20 LEADING:5 TRAILING:5 MINLEN:50"
