@@ -18,8 +18,8 @@ workdir: config['workdir'],
 
 rule all:
     input:
-        expand("results/fastqc/{sample}_1_fastqc.html", sample=config['samples']),
-        expand("results/fastqc/{sample}_2_fastqc.html", sample=config['samples']),
+        #expand("results/fastqc/{sample}_1_fastqc.html", sample=config['samples']),
+        #expand("results/fastqc/{sample}_2_fastqc.html", sample=config['samples']),
         expand("results/fastx/filtered_{sample}_1.fastq", sample=config['samples']),
         expand("results/fastx/filtered_{sample}_2.fastq", sample=config['samples'])
 
