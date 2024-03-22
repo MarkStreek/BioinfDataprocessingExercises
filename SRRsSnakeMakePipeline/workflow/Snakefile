@@ -20,10 +20,13 @@ rule all:
     input:
         expand("results/fastqc/{sample}_1_fastqc.html", sample=config['samples']),
         expand("results/fastqc/{sample}_2_fastqc.html", sample=config['samples']),
-        expand("results/trimmomatic/{sample}_1_paired_trimmed.fastq", sample=config['samples']),
-        expand("results/trimmomatic/{sample}_2_paired_trimmed.fastq", sample=config['samples']),
-        expand("results/trimmomatic/{sample}_1_unpaired_trimmed.fastq", sample=config['samples']),
-        expand("results/trimmomatic/{sample}_2_unpaired_trimmed.fastq", sample=config['samples'])
+        expand("results/fastx/filtered_{sample}_1.fastq", sample=config['samples']),
+        expand("results/fastx/filtered_{sample}_2.fastq", sample=config['samples'])
+
+        # expand("results/trimmomatic/{sample}_1_paired_trimmed.fastq", sample=config['samples']),
+        # expand("results/trimmomatic/{sample}_2_paired_trimmed.fastq", sample=config['samples']),
+        # expand("results/trimmomatic/{sample}_1_unpaired_trimmed.fastq", sample=config['samples']),
+        # expand("results/trimmomatic/{sample}_2_unpaired_trimmed.fastq", sample=config['samples'])
 
 rule fastQC:
     input:
@@ -61,29 +64,6 @@ rule fastx_toolkit:
     shell:
         "fastq_quality_filter -v -q 20 -p 75 -i {input} -o {output}"
 
-# rule trimmomatic:
-#     """
-#     Rule that runs Trimmomatic on the FASTX toolkit output files
-#     """
-#     input:
-#         "results/fastx/filtered_{sample}.fastq"
-#     output:
-#         pairded_end_1="results/trimmomatic/{sample}_paired_trimmed_1.fastq",
-#         pairded_end_2="results/trimmomatic/{sample}_paired_trimmed_2.fastq",
-#         unpaired_end_1="results/trimmomatic/{sample}_unpaired_trimmed_1.fastq",
-#         unpaired_end_2="results/trimmomatic/{sample}_unpaired_trimmed_2.fastq"
-#     log:
-#         "logs/trimmomatic/{sample}.log"
-#     message:
-#         "Running Trimmomatic on {input}"
-#     conda:
-#         "../envs/Trimmomatic.yaml"
-#     shell:
-#         "java -Xmx1G -jar trimmomatic-0.38.jar PE -phred33 -threads 16 -trimlog {log} {input} {output.pairded_end_1} {output.unpaired_end_1} {output.pairded_end_2} {output.unpaired_end_2} "
-#         "ILLUMINACLIP:../envs/trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 SLIDINGWINDOW:5:20 LEADING:5 TRAILING:5 MINLEN:50"
-    
-    # USE rimmomatic-0.39/adapters/TruSeq3-SE.fa when RUNNING TRIMMOMATIC
-
 rule trimmomatic_pe:
     input:
         r1="results/fastx/filtered_{sample}_1.fastq",
@@ -104,3 +84,27 @@ rule trimmomatic_pe:
         mem_mb=1024
     wrapper:
         "v3.5.2/bio/trimmomatic/pe"
+
+
+    # rule trimmomatic:
+    #     """
+    #     Rule that runs Trimmomatic on the FASTX toolkit output files
+    #     """
+    #     input:
+    #         "results/fastx/filtered_{sample}.fastq"
+    #     output:
+    #         pairded_end_1="results/trimmomatic/{sample}_paired_trimmed_1.fastq",
+    #         pairded_end_2="results/trimmomatic/{sample}_paired_trimmed_2.fastq",
+    #         unpaired_end_1="results/trimmomatic/{sample}_unpaired_trimmed_1.fastq",
+    #         unpaired_end_2="results/trimmomatic/{sample}_unpaired_trimmed_2.fastq"
+    #     log:
+    #         "logs/trimmomatic/{sample}.log"
+    #     message:
+    #         "Running Trimmomatic on {input}"
+    #     conda:
+    #         "../envs/Trimmomatic.yaml"
+    #     shell:
+    #         "java -Xmx1G -jar trimmomatic-0.38.jar PE -phred33 -threads 16 -trimlog {log} {input} {output.pairded_end_1} {output.unpaired_end_1} {output.pairded_end_2} {output.unpaired_end_2} "
+    #         "ILLUMINACLIP:../envs/trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 SLIDINGWINDOW:5:20 LEADING:5 TRAILING:5 MINLEN:50"
+
+    # USE rimmomatic-0.39/adapters/TruSeq3-SE.fa when RUNNING TRIMMOMATIC
