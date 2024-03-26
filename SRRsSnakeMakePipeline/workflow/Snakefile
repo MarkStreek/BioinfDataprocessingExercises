@@ -23,8 +23,8 @@ rule all:
         expand("results/fastx/filtered_{sample}_1.fastq", sample=config['samples']),
         expand("results/fastx/filtered_{sample}_2.fastq", sample=config['samples']),
 
-        expand("results/sortmerna/{sample}_aligned_1.fastq", sample=config['samples']),
-        expand("results/sortmerna/{sample}_aligned_2.fastq",sample=config['samples']),
+        expand("aligned_{sample}_1.fastq", sample=config['samples']),
+        expand("aligned_{sample}_2.fastq", sample=config['samples']),
 
         # expand("results/trimmomatic/{sample}_1_paired_trimmed.fastq", sample=config['samples']),
         # expand("results/trimmomatic/{sample}_2_paired_trimmed.fastq", sample=config['samples']),
@@ -93,24 +93,25 @@ rule trimmomatic_pe:
 
 rule sortmerna_pe:
     input:
-        ref=["silva-bac-16s-id90.fasta", "silva-bac-23s-id98.fasta",
-             "silva-arc-16s-id95.fasta", "silva-arc-23s-id98.fasta",
-             "silva-euk-18s-id95.fasta", "silva-euk-28s-id98.fasta",
-             "rfam-5s-database-id98.fasta", "rfam-5.8s-database-id98.fasta"],
-        reads=["results/trimmomatic/{sample}_1_paired_trimmed.fastq",
-               "results/trimmomatic/{sample}_2_paired_trimmed.fastq"],
+        ref=["/homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-16s-id90.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-23s-id98.fasta",
+             "/homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-16s-id95.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-23s-id98.fasta",
+             "/homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-18s-id95.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-28s-id98.fasta",
+             "/homes/mvandestreek/sortmerna/rRNA_databases/rfam-5s-database-id98.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/rfam-5.8s-database-id98.fasta"],
+        
+        reads = ["results/trimmomatic/{sample}_1_paired_trimmed.fastq",
+                "results/trimmomatic/{sample}_2_paired_trimmed.fastq"],
     output:
-        aligned=["results/sortmerna/{sample}_aligned_1.fastq",
-                 "results/sortmerna/{sample}_aligned_2.fastq"],
-        other=["results/sortmerna/{sample}_unpaired_1.fastq",
-               "results/sortmerna/{sample}_unpaired_2.fastq"],
-        stats="logs/sortmerna/sortmerna_{sample}_stats.log",
+        aligned=["aligned_{sample}_1.fastq", "aligned_{sample}_2.fastq"],
+        other=["unpaired_{sample}_1.fastq", "unpaired_{sample}_2.fastq"],
+        stats="sortmerna_pe_stats_{sample}.log",
     params:
         extra="--idx-dir idx --paired_in --out2",
     threads: 16
     resources:
         mem_mb=3072,  # amount of memory for building the index
-    wildcard_constraints:
-        sample=lambda wildcards: wildcards.sample  # Assuming 'sample' is a wildcard used in all paths
+    log:
+        "logs/sortmerna/reads_pe_{sample}.log",
+    benchmark:
+        "benchmarks/sortmerna/reads_pe_{sample}.txt",
     wrapper:
         "v3.5.3/bio/sortmerna"
