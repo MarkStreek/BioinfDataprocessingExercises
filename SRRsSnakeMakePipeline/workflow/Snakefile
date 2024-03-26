@@ -23,8 +23,11 @@ rule all:
         expand("results/fastx/filtered_{sample}_1.fastq", sample=config['samples']),
         expand("results/fastx/filtered_{sample}_2.fastq", sample=config['samples']),
 
-        expand("aligned_{sample}_1.fastq", sample=config['samples']),
-        expand("aligned_{sample}_2.fastq", sample=config['samples']),
+        # expand("aligned_{sample}_1.fastq", sample=config['samples']),
+        # expand("aligned_{sample}_2.fastq", sample=config['samples']),
+
+        nonRNA=expand("results/sortmerna/{sample}_non_rRNA.fq", sample=config['samples']),
+        alignedRNA=expand("results/sortmerna/{sample}_rRNA.fq", sample=config['samples']),
 
         # expand("results/trimmomatic/{sample}_1_paired_trimmed.fastq", sample=config['samples']),
         # expand("results/trimmomatic/{sample}_2_paired_trimmed.fastq", sample=config['samples']),
@@ -91,27 +94,62 @@ rule trimmomatic_pe:
     wrapper:
         "v3.5.2/bio/trimmomatic/pe"
 
-rule sortmerna_pe:
+rule mergeFastQ:
     input:
-        ref=["/homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-16s-id90.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-23s-id98.fasta",
-             "/homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-16s-id95.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-23s-id98.fasta",
-             "/homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-18s-id95.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-28s-id98.fasta",
-             "/homes/mvandestreek/sortmerna/rRNA_databases/rfam-5s-database-id98.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/rfam-5.8s-database-id98.fasta"],
-        
-        reads = ["results/trimmomatic/{sample}_1_paired_trimmed.fastq",
-                "results/trimmomatic/{sample}_2_paired_trimmed.fastq"],
+        r1="results/trimmomatic/{sample}_1_paired_trimmed.fastq",
+        r2="results/trimmomatic/{sample}_2_paired_trimmed.fastq"
     output:
-        aligned=["aligned_{sample}_1.fastq", "aligned_{sample}_2.fastq"],
-        other=["unpaired_{sample}_1.fastq", "unpaired_{sample}_2.fastq"],
-        stats="sortmerna_pe_stats_{sample}.log",
-    params:
-        extra="--idx-dir idx --paired_in --out2",
-    threads: 16
-    resources:
-        mem_mb=3072,  # amount of memory for building the index
+        "results/sortmerna/{sample}_interleaved.fastq"
+    shell:
+        "workflow/scripts/merge-paired-reads.sh {input.r1} {input.r2} {output}"
+
+rule sortMeRNA:
+    input:
+        ref1="/homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-16s-id90.fasta",
+        ref2="/homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-16s-id95.fasta",
+        ref3="/homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-23s-id98.fasta",
+        sample="results/sortmerna/{sample}_interleaved.fastq",
+    output:
+        nonRNA="results/sortmerna/{sample}_non_rRNA.fq",
+        alignedRNA="results/sortmerna/{sample}_rRNA.fq",
+        #
+        # PROBLEM: Tool has standard as output .fq, but when I say output is .fq, 
+        # Output is .fq.fq. So I need to change the output to .fq, but then the
+        # output is not recognized as a file.
+        #
+    conda:
+        "../envs/sortmerna.yaml",
     log:
-        "logs/sortmerna/reads_pe_{sample}.log",
-    benchmark:
-        "benchmarks/sortmerna/reads_pe_{sample}.txt",
-    wrapper:
-        "v3.5.3/bio/sortmerna"
+        "logs/sortmerna/{sample}.log",
+    shell:
+        """
+        rm -rf /homes/mvandestreek/sortmerna/run/kvdb/*
+        sortmerna --reads {input.sample} --ref {input.ref1} --ref {input.ref2} --ref {input.ref3} --num_alignments 1 --fastx --aligned {output.alignedRNA} --other {output.nonRNA} -a 8 -m 64000 --paired_in -v
+        mv {output.alignedRNA}.fq {output.alignedRNA} &&
+        mv {output.nonRNA}.fq {output.nonRNA}
+        """
+
+# rule sortmerna_pe:
+#     input:
+#         ref=["/homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-16s-id90.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-23s-id98.fasta",
+#              "/homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-16s-id95.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-23s-id98.fasta",
+#              "/homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-18s-id95.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-28s-id98.fasta",
+#              "/homes/mvandestreek/sortmerna/rRNA_databases/rfam-5s-database-id98.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/rfam-5.8s-database-id98.fasta"],
+        
+#         reads = ["results/trimmomatic/{sample}_1_paired_trimmed.fastq",
+#                 "results/trimmomatic/{sample}_2_paired_trimmed.fastq"],
+#     output:
+#         aligned=["aligned_{sample}_1.fastq", "aligned_{sample}_2.fastq"],
+#         other=["unpaired_{sample}_1.fastq", "unpaired_{sample}_2.fastq"],
+#         stats="sortmerna_pe_stats_{sample}.log",
+#     params:
+#         extra="--num_alignments 1 --fastx --log -m 64000 --paired_in -v",
+#     threads: 16
+#     resources:
+#         mem_mb=3072,  # amount of memory for building the index
+#     log:
+#         "logs/sortmerna/reads_pe_{sample}.log",
+#     benchmark:
+#         "benchmarks/sortmerna/reads_pe_{sample}.txt",
+#     wrapper:
+#         "v3.5.3/bio/sortmerna"

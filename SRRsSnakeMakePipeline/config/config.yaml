@@ -6,7 +6,9 @@ samples_directory : /homes/mvandestreek/
 
 # Samples
 samples :
-  - sample1
+  - SS
+  #- sample1
+  #- SRR2541811
 
 threads : 20
 

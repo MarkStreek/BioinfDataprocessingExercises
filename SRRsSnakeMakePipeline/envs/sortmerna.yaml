@@ -1,0 +1,7 @@
+name: SortmeRNA conda environment
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - sortmerna
