@@ -97,7 +97,8 @@ rule sortmerna_pe:
              "silva-arc-16s-id95.fasta", "silva-arc-23s-id98.fasta",
              "silva-euk-18s-id95.fasta", "silva-euk-28s-id98.fasta",
              "rfam-5s-database-id98.fasta", "rfam-5.8s-database-id98.fasta"],
-        reads=["results/trimmomatic/{sample}_1_paired_trimmed.fastq", "results/trimmomatic/{sample}_2_paired_trimmed.fastq"],
+        reads=["results/trimmomatic/{sample}_1_paired_trimmed.fastq",
+               "results/trimmomatic/{sample}_2_paired_trimmed.fastq"],
     output:
         aligned=["results/sortmerna/{sample}_aligned_1.fastq",
                  "results/sortmerna/{sample}_aligned_2.fastq"],
@@ -109,7 +110,7 @@ rule sortmerna_pe:
     threads: 16
     resources:
         mem_mb=3072,  # amount of memory for building the index
-    log:
-        "logs/sortmerna/reads_pe.log",
+    wildcard_constraints:
+        sample=lambda wildcards: wildcards.sample  # Assuming 'sample' is a wildcard used in all paths
     wrapper:
         "v3.5.3/bio/sortmerna"
