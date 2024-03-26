@@ -23,7 +23,7 @@ rule all:
         expand("results/fastx/filtered_{sample}_1.fastq", sample=config['samples']),
         expand("results/fastx/filtered_{sample}_2.fastq", sample=config['samples']),
 
-        expand("results/sortmerna/{sample}_aligned_1.fastq.gz", sample=config['samples']),
+        expand("results/sortmerna/{sample}_aligned_1.fastq", sample=config['samples']),
         expand("results/sortmerna/{sample}_aligned_2.fastq",sample=config['samples']),
 
         # expand("results/trimmomatic/{sample}_1_paired_trimmed.fastq", sample=config['samples']),
@@ -99,9 +99,9 @@ rule sortmerna_pe:
              "rfam-5s-database-id98.fasta", "rfam-5.8s-database-id98.fasta"],
         reads=["results/trimmomatic/{sample}_1_paired_trimmed.fastq", "results/trimmomatic/{sample}_2_paired_trimmed.fastq"],
     output:
-        aligned=["results/sortmerna/{sample}_aligned_1.fastq.gz",
+        aligned=["results/sortmerna/{sample}_aligned_1.fastq",
                  "results/sortmerna/{sample}_aligned_2.fastq"],
-        other=["results/sortmerna/{sample}_unpaired_1.fastq.gz",
+        other=["results/sortmerna/{sample}_unpaired_1.fastq",
                "results/sortmerna/{sample}_unpaired_2.fastq"],
         stats="logs/sortmerna/sortmerna_{sample}_stats.log",
     params:
