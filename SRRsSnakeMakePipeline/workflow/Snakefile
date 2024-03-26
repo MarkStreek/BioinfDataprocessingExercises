@@ -18,21 +18,15 @@ workdir: config['workdir'],
 
 rule all:
     input:
+        # The FASTQC Tool output isn't used in any rule,
+        # therefore, we must specify this in the rule all.
         expand("results/fastqc/{sample}_1_fastqc.html", sample=config['samples']),
         expand("results/fastqc/{sample}_2_fastqc.html", sample=config['samples']),
         expand("results/fastx/filtered_{sample}_1.fastq", sample=config['samples']),
         expand("results/fastx/filtered_{sample}_2.fastq", sample=config['samples']),
-
-        # expand("aligned_{sample}_1.fastq", sample=config['samples']),
-        # expand("aligned_{sample}_2.fastq", sample=config['samples']),
-
+        # The "last" file is the output of the pipeline
         nonRNA=expand("results/sortmerna/{sample}_non_rRNA.fq", sample=config['samples']),
         alignedRNA=expand("results/sortmerna/{sample}_rRNA.fq", sample=config['samples']),
-
-        # expand("results/trimmomatic/{sample}_1_paired_trimmed.fastq", sample=config['samples']),
-        # expand("results/trimmomatic/{sample}_2_paired_trimmed.fastq", sample=config['samples']),
-        # expand("results/trimmomatic/{sample}_1_unpaired_trimmed.fastq", sample=config['samples']),
-        # expand("results/trimmomatic/{sample}_2_unpaired_trimmed.fastq", sample=config['samples'])
 
 rule fastQC:
     input:
@@ -85,7 +79,14 @@ rule trimmomatic_pe:
     log:
         "logs/trimmomatic/{sample}.log"
     params:
-        trimmer=["ILLUMINACLIP:../envs/trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10", "SLIDINGWINDOW:5:20", "LEADING:5", "TRAILING:5", "MINLEN:50"],
+        # Specify the trimmer options
+        trimmer=[
+            "ILLUMINACLIP:../envs/trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10",
+            "SLIDINGWINDOW:5:20",
+            "LEADING:5",
+            "TRAILING:5",
+            "MINLEN:50"],
+
         extra="",
         compression_level="-9"
     threads: 16
@@ -104,10 +105,19 @@ rule mergeFastQ:
         "workflow/scripts/merge-paired-reads.sh {input.r1} {input.r2} {output}"
 
 rule sortMeRNA:
+    """
+    SortMeRNA uses a Work directory with the default location $USER/sortmerna/run/. Sortmerna also checks kvdb directory. 
+    This directory has to be Empty prior each new run. Therefore, we have to empty this before starting a new run.
+    """
     input:
-        ref1="/homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-16s-id90.fasta",
-        ref2="/homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-16s-id95.fasta",
-        ref3="/homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-23s-id98.fasta",
+        ref1=config['rRNA_databases'] + "silva-bac-16s-id90.fasta", 
+        ref2=config['rRNA_databases'] + "silva-bac-23s-id98.fasta",
+        ref3=config['rRNA_databases'] + "silva-arc-16s-id95.fasta", 
+        ref4=config['rRNA_databases'] + "silva-arc-23s-id98.fasta",
+        ref5=config['rRNA_databases'] + "silva-euk-18s-id95.fasta",
+        ref6=config['rRNA_databases'] + "silva-euk-28s-id98.fasta",
+        ref7=config['rRNA_databases'] + "rfam-5s-database-id98.fasta", 
+        ref8=config['rRNA_databases'] + "rfam-5.8s-database-id98.fasta",
         sample="results/sortmerna/{sample}_interleaved.fastq",
     output:
         nonRNA="results/sortmerna/{sample}_non_rRNA.fq",
@@ -119,37 +129,14 @@ rule sortMeRNA:
         #
     conda:
         "../envs/sortmerna.yaml",
+    threads: 
+        threads=config['threads'],
     log:
         "logs/sortmerna/{sample}.log",
     shell:
         """
-        rm -rf /homes/mvandestreek/sortmerna/run/kvdb/*
-        sortmerna --reads {input.sample} --ref {input.ref1} --ref {input.ref2} --ref {input.ref3} --num_alignments 1 --fastx --aligned {output.alignedRNA} --other {output.nonRNA} -a 8 -m 64000 --paired_in -v
+        rm -rf ~/sortmerna/run/kvdb/*
+        sortmerna --reads {input.sample} --ref {input.ref1} --ref {input.ref2} --ref {input.ref3} --num_alignments 1 --fastx --aligned {output.alignedRNA} --other {output.nonRNA} -a {threads} -m 64000 --paired_in -v
         mv {output.alignedRNA}.fq {output.alignedRNA} &&
         mv {output.nonRNA}.fq {output.nonRNA}
         """
-
-# rule sortmerna_pe:
-#     input:
-#         ref=["/homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-16s-id90.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-23s-id98.fasta",
-#              "/homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-16s-id95.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-23s-id98.fasta",
-#              "/homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-18s-id95.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-28s-id98.fasta",
-#              "/homes/mvandestreek/sortmerna/rRNA_databases/rfam-5s-database-id98.fasta", "/homes/mvandestreek/sortmerna/rRNA_databases/rfam-5.8s-database-id98.fasta"],
-        
-#         reads = ["results/trimmomatic/{sample}_1_paired_trimmed.fastq",
-#                 "results/trimmomatic/{sample}_2_paired_trimmed.fastq"],
-#     output:
-#         aligned=["aligned_{sample}_1.fastq", "aligned_{sample}_2.fastq"],
-#         other=["unpaired_{sample}_1.fastq", "unpaired_{sample}_2.fastq"],
-#         stats="sortmerna_pe_stats_{sample}.log",
-#     params:
-#         extra="--num_alignments 1 --fastx --log -m 64000 --paired_in -v",
-#     threads: 16
-#     resources:
-#         mem_mb=3072,  # amount of memory for building the index
-#     log:
-#         "logs/sortmerna/reads_pe_{sample}.log",
-#     benchmark:
-#         "benchmarks/sortmerna/reads_pe_{sample}.txt",
-#     wrapper:
-#         "v3.5.3/bio/sortmerna"

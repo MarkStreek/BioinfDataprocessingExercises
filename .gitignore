@@ -52,3 +52,4 @@ rsconnect/
 .snakemake/
 *.fastq
 results/
+idx/
