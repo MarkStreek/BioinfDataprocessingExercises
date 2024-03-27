@@ -25,8 +25,8 @@ rule all:
         expand("results/fastx/filtered_{sample}_1.fastq", sample=config['samples']),
         expand("results/fastx/filtered_{sample}_2.fastq", sample=config['samples']),
 
-        r1=expand("results/sortmerna/unmerged/{sample}_non_rRNA_1.fastq", sample=config['samples']),
-        r2=expand("results/sortmerna/unmerged/{sample}_non_rRNA_2.fastq", sample=config['samples']),
+        fas=expand("results/trinity/{sample}_trinity.fasta", sample=config['samples']),
+        map=expand("results/trinity/{sample}_trinity.fasta.gene_trans_map", sample=config['samples']),
 
 # rule download_Samples:
 #     output:
@@ -166,9 +166,12 @@ rule unmergeFastQ:
         "workflow/scripts/unmerge-paired-reads.sh {input} {output.r1} {output.r2}"
 
 rule trinity_assembly:
+    """
+    Trinity is a de novo transcriptome assembler
+    """
     input:
         left=["results/sortmerna/unmerged/{sample}_non_rRNA_1.fastq"],
-        right=["results/sortmerna/unmerged/{sample}_non_RNA_2.fastq"]
+        right=["results/sortmerna/unmerged/{sample}_non_rRNA_2.fastq"],
     output:
         dir=temp("/tmp/{sample}_trinity_out"),
         fas="results/trinity/{sample}_trinity.fasta",
@@ -178,6 +181,6 @@ rule trinity_assembly:
     threads:
         config['threads']
     resources:
-        mem_gb=10
+        mem_gb=3
     wrapper:
         "v3.5.3/bio/trinity"
