@@ -24,9 +24,31 @@ rule all:
         expand("results/fastqc/{sample}_2_fastqc.html", sample=config['samples']),
         expand("results/fastx/filtered_{sample}_1.fastq", sample=config['samples']),
         expand("results/fastx/filtered_{sample}_2.fastq", sample=config['samples']),
-        # The "last" file is the output of the pipeline
-        nonRNA=expand("results/sortmerna/{sample}_non_rRNA.fq", sample=config['samples']),
-        alignedRNA=expand("results/sortmerna/{sample}_rRNA.fq", sample=config['samples']),
+
+        r1=expand("results/sortmerna/unmerged/{sample}_non_rRNA_1.fastq", sample=config['samples']),
+        r2=expand("results/sortmerna/unmerged/{sample}_non_rRNA_2.fastq", sample=config['samples']),
+
+# rule download_Samples:
+#     output:
+#         config["samples_directory"] + "{sample}_1.fastq",
+#         config["samples_directory"] + "{sample}_2.fastq"
+#     log:
+#         "logs/download/{sample}.log"
+#     shell:
+#         "fasterq-dump {wildcards.sample} -O {config['samples_directory']}"
+
+rule get_fastq_pe:
+    output:
+        config["samples_directory"] + "{sample}_1.fastq",
+        config["samples_directory"] + "{sample}_2.fastq",
+    log:
+        "logs/download/{sample}.log"
+    params:
+        extra="--skip-technical"
+    threads:
+        config['threads']
+    wrapper:
+        "v3.5.3/bio/sra-tools/fasterq-dump"
 
 rule fastQC:
     input:
@@ -86,8 +108,6 @@ rule trimmomatic_pe:
             "LEADING:5",
             "TRAILING:5",
             "MINLEN:50"],
-
-        extra="",
         compression_level="-9"
     threads: 16
     resources:
@@ -100,7 +120,9 @@ rule mergeFastQ:
         r1="results/trimmomatic/{sample}_1_paired_trimmed.fastq",
         r2="results/trimmomatic/{sample}_2_paired_trimmed.fastq"
     output:
-        "results/sortmerna/{sample}_interleaved.fastq"
+        "results/sortmerna/merged/{sample}_interleaved.fastq"
+    conda:
+        "../envs/sortmerna.yaml"
     shell:
         "workflow/scripts/merge-paired-reads.sh {input.r1} {input.r2} {output}"
 
@@ -110,7 +132,7 @@ rule sortMeRNA:
     This directory has to be Empty prior each new run. Therefore, we have to empty this before starting a new run.
     """
     input:
-        ref1=config['rRNA_databases'] + "silva-bac-16s-id90.fasta", 
+        ref1=config['rRNA_databases'] + "silva-bac-16s-id90.fasta",
         ref2=config['rRNA_databases'] + "silva-bac-23s-id98.fasta",
         ref3=config['rRNA_databases'] + "silva-arc-16s-id95.fasta", 
         ref4=config['rRNA_databases'] + "silva-arc-23s-id98.fasta",
@@ -118,21 +140,14 @@ rule sortMeRNA:
         ref6=config['rRNA_databases'] + "silva-euk-28s-id98.fasta",
         ref7=config['rRNA_databases'] + "rfam-5s-database-id98.fasta", 
         ref8=config['rRNA_databases'] + "rfam-5.8s-database-id98.fasta",
-        sample="results/sortmerna/{sample}_interleaved.fastq",
+        sample="results/sortmerna/merged/{sample}_interleaved.fastq",
     output:
-        nonRNA="results/sortmerna/{sample}_non_rRNA.fq",
-        alignedRNA="results/sortmerna/{sample}_rRNA.fq",
-        #
-        # PROBLEM: Tool has standard as output .fq, but when I say output is .fq, 
-        # Output is .fq.fq. So I need to change the output to .fq, but then the
-        # output is not recognized as a file.
-        #
+        nonRNA="results/sortmerna/{sample}_non_rRNA.fastq",
+        alignedRNA="results/sortmerna/{sample}_rRNA.fastq",
     conda:
         "../envs/sortmerna.yaml",
     threads: 
         threads=config['threads'],
-    log:
-        "logs/sortmerna/{sample}.log",
     shell:
         """
         rm -rf ~/sortmerna/run/kvdb/*
@@ -140,3 +155,29 @@ rule sortMeRNA:
         mv {output.alignedRNA}.fq {output.alignedRNA} &&
         mv {output.nonRNA}.fq {output.nonRNA}
         """
+
+rule unmergeFastQ:
+    input:
+        "results/sortmerna/{sample}_non_rRNA.fastq",
+    output:
+        r1="results/sortmerna/unmerged/{sample}_non_rRNA_1.fastq",
+        r2="results/sortmerna/unmerged/{sample}_non_rRNA_2.fastq",
+    shell:
+        "workflow/scripts/unmerge-paired-reads.sh {input} {output.r1} {output.r2}"
+
+rule trinity_assembly:
+    input:
+        left=["results/sortmerna/unmerged/{sample}_non_rRNA_1.fastq"],
+        right=["results/sortmerna/unmerged/{sample}_non_RNA_2.fastq"]
+    output:
+        dir=temp("/tmp/{sample}_trinity_out"),
+        fas="results/trinity/{sample}_trinity.fasta",
+        map="results/trinity/{sample}_trinity.fasta.gene_trans_map"
+    params:
+        extra="",
+    threads:
+        config['threads']
+    resources:
+        mem_gb=10
+    wrapper:
+        "v3.5.3/bio/trinity"

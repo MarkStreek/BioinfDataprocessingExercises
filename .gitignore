@@ -53,3 +53,5 @@ rsconnect/
 *.fastq
 results/
 idx/
+idea/
+.idea/

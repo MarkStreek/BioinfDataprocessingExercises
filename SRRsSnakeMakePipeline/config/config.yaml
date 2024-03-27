@@ -3,7 +3,7 @@
 # Defining the default working directory
 workdir : /homes/mvandestreek/HANZEHOGESCHOOL_GRONINGEN/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/SRRsSnakeMakePipeline
 samples_directory : /homes/mvandestreek/
-rRNA_databases: /homes/mvandestreek/Downloads/
+rRNA_databases : /homes/mvandestreek/HANZEHOGESCHOOL_GRONINGEN/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/SRRsSnakeMakePipeline/sortme_references/
 
 # Samples
 samples :
