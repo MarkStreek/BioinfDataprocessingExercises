@@ -1,0 +1,366 @@
+[process:1393] === Options processing starts ... ===
+Found value: sortmerna
+Found flag: --ref
+Found value: /homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-16s-id90.fasta of previous flag: --ref
+Found flag: --ref
+Found value: /homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-23s-id98.fasta of previous flag: --ref
+Found flag: --ref
+Found value: /homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-16s-id95.fasta of previous flag: --ref
+Found flag: --ref
+Found value: /homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-23s-id98.fasta of previous flag: --ref
+Found flag: --ref
+Found value: /homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-18s-id95.fasta of previous flag: --ref
+Found flag: --ref
+Found value: /homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-28s-id98.fasta of previous flag: --ref
+Found flag: --ref
+Found value: /homes/mvandestreek/sortmerna/rRNA_databases/rfam-5s-database-id98.fasta of previous flag: --ref
+Found flag: --ref
+Found value: /homes/mvandestreek/sortmerna/rRNA_databases/rfam-5.8s-database-id98.fasta of previous flag: --ref
+Found flag: --reads
+Found value: results/trimmomatic/sample1_1_paired_trimmed.fastq of previous flag: --reads
+Found flag: --reads
+Found value: results/trimmomatic/sample1_2_paired_trimmed.fastq of previous flag: --reads
+Found flag: --workdir
+Found value: /tmp/tmpdii6xx45 of previous flag: --workdir
+Found flag: --threads
+Found value: 4 of previous flag: --threads
+Found flag: -m
+Found value: 3072 of previous flag: -m
+Found flag: --aligned
+Found value: /tmp/tmpdii6xx45/aligned_reads of previous flag: --aligned
+Found flag: --other
+Found value: /tmp/tmpdii6xx45/other_reads of previous flag: --other
+Found flag: --fastx
+Previous flag: --fastx is Boolean. Setting to True
+Found flag: --idx-dir
+Found value: idx of previous flag: --idx-dir
+Found flag: --paired_in
+Previous flag: --paired_in is Boolean. Setting to True
+Found flag: --out2
+[opt_workdir:995] Using WORKDIR: "/tmp/tmpdii6xx45" as specified
+[process:1483] Processing option: aligned with value: /tmp/tmpdii6xx45/aligned_reads
+[process:1483] Processing option: fastx with value: 
+[process:1483] Processing option: idx-dir with value: idx
+[opt_idxdir:1019] Using IDX dir: ["/homes/mvandestreek/HANZEHOGESCHOOL_GRONINGEN/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/SRRsSnakeMakePipeline/idx" as specified
+[process:1483] Processing option: m with value: 3072
+[process:1483] Processing option: other with value: /tmp/tmpdii6xx45/other_reads
+[process:1483] Processing option: out2 with value: 
+[process:1483] Processing option: paired_in with value: 
+[process:1483] Processing option: reads with value: results/trimmomatic/sample1_1_paired_trimmed.fastq
+[opt_reads:98] Processing reads file [1] out of total [2] files
+[process:1483] Processing option: reads with value: results/trimmomatic/sample1_2_paired_trimmed.fastq
+[opt_reads:98] Processing reads file [2] out of total [2] files
+[process:1483] Processing option: ref with value: /homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-16s-id90.fasta
+[opt_ref:158] Processing reference [1] out of total [8] references
+[opt_ref:206] File "/homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-16s-id90.fasta" exists and is readable
+[process:1483] Processing option: ref with value: /homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-23s-id98.fasta
+[opt_ref:158] Processing reference [2] out of total [8] references
+[opt_ref:206] File "/homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-23s-id98.fasta" exists and is readable
+[process:1483] Processing option: ref with value: /homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-16s-id95.fasta
+[opt_ref:158] Processing reference [3] out of total [8] references
+[opt_ref:206] File "/homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-16s-id95.fasta" exists and is readable
+[process:1483] Processing option: ref with value: /homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-23s-id98.fasta
+[opt_ref:158] Processing reference [4] out of total [8] references
+[opt_ref:206] File "/homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-23s-id98.fasta" exists and is readable
+[process:1483] Processing option: ref with value: /homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-18s-id95.fasta
+[opt_ref:158] Processing reference [5] out of total [8] references
+[opt_ref:206] File "/homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-18s-id95.fasta" exists and is readable
+[process:1483] Processing option: ref with value: /homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-28s-id98.fasta
+[opt_ref:158] Processing reference [6] out of total [8] references
+[opt_ref:206] File "/homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-28s-id98.fasta" exists and is readable
+[process:1483] Processing option: ref with value: /homes/mvandestreek/sortmerna/rRNA_databases/rfam-5s-database-id98.fasta
+[opt_ref:158] Processing reference [7] out of total [8] references
+[opt_ref:206] File "/homes/mvandestreek/sortmerna/rRNA_databases/rfam-5s-database-id98.fasta" exists and is readable
+[process:1483] Processing option: ref with value: /homes/mvandestreek/sortmerna/rRNA_databases/rfam-5.8s-database-id98.fasta
+[opt_ref:158] Processing reference [8] out of total [8] references
+[opt_ref:206] File "/homes/mvandestreek/sortmerna/rRNA_databases/rfam-5.8s-database-id98.fasta" exists and is readable
+[process:1483] Processing option: threads with value: 4
+[process:1503] === Options processing done ===
+[process:1504] Alignment type: [best:1 num_alignments:1 min_lis:2 seeds:2]
+[validate_kvdbdir:1248] Key-value DB location "/tmp/tmpdii6xx45/kvdb"
+[validate_kvdbdir:1284] Creating KVDB directory: "/tmp/tmpdii6xx45/kvdb"
+[validate_idxdir:1214] Using index directory: "/homes/mvandestreek/HANZEHOGESCHOOL_GRONINGEN/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/SRRsSnakeMakePipeline/idx"
+[validate_idxdir:1222] Created index directory - OK
+[validate_readb_dir:1306] Using split reads directory : "/tmp/tmpdii6xx45/readb"
+[validate_readb_dir:1314] Created split reads directory - OK
+[main:62] Running command:
+sortmerna --ref /homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-16s-id90.fasta --ref /homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-23s-id98.fasta --ref /homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-16s-id95.fasta --ref /homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-23s-id98.fasta --ref /homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-18s-id95.fasta --ref /homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-28s-id98.fasta --ref /homes/mvandestreek/sortmerna/rRNA_databases/rfam-5s-database-id98.fasta --ref /homes/mvandestreek/sortmerna/rRNA_databases/rfam-5.8s-database-id98.fasta --reads results/trimmomatic/sample1_1_paired_trimmed.fastq --reads results/trimmomatic/sample1_2_paired_trimmed.fastq --workdir /tmp/tmpdii6xx45 --threads 4 -m 3072 --aligned /tmp/tmpdii6xx45/aligned_reads --other /tmp/tmpdii6xx45/other_reads --fastx --idx-dir idx --paired_in --out2 
+[build_index:1127] ==== Index building started ====
+[build_index:1190] Begin indexing file /homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-16s-id90.fasta of size: 19437013 under index name idx/15734375058464002811
+  done.
+
+[build_index:1190] Begin indexing file /homes/mvandestreek/sortmerna/rRNA_databases/silva-bac-23s-id98.fasta of size: 12911743 under index name idx/17299952793705614139
+  done.
+
+[build_index:1190] Begin indexing file /homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-16s-id95.fasta of size: 3893959 under index name idx/3436099190853847617
+  done.
+
+[build_index:1190] Begin indexing file /homes/mvandestreek/sortmerna/rRNA_databases/silva-arc-23s-id98.fasta of size: 752022 under index name idx/3400685301612210653
+  done.
+
+[build_index:1190] Begin indexing file /homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-18s-id95.fasta of size: 13259584 under index name idx/2700646386527218729
+  done.
+
+[build_index:1190] Begin indexing file /homes/mvandestreek/sortmerna/rRNA_databases/silva-euk-28s-id98.fasta of size: 14945070 under index name idx/1845323523482939374
+  done.
+
+[build_index:1190] Begin indexing file /homes/mvandestreek/sortmerna/rRNA_databases/rfam-5s-database-id98.fasta of size: 8525326 under index name idx/13019673092862722585
+  done.
+
+[build_index:1190] Begin indexing file /homes/mvandestreek/sortmerna/rRNA_databases/rfam-5.8s-database-id98.fasta of size: 2280449 under index name idx/2169995244134016533
+  done.
+
+[build_index:2108] ==== Done index building in 174.382 sec ====
+
+[init:108] Readfeed init started
+[define_format:881] file: "results/trimmomatic/sample1_1_paired_trimmed.fastq" is FASTQ flat ASCII
+[define_format:881] file: "results/trimmomatic/sample1_2_paired_trimmed.fastq" is FASTQ flat ASCII
+[count_reads:915] started count  ...   
+[next:322] EOF FWD reached. Total reads: 2
+[next:322] EOF REV reached. Total reads: 2
+[count_reads:945] done count. Elapsed time: 1.1974e-05 sec. Total reads: 4
+[init_split_files:967] added file: /tmp/tmpdii6xx45/readb/fwd_0.fq
+[init_split_files:967] added file: /tmp/tmpdii6xx45/readb/rev_0.fq
+[init_split_files:967] added file: /tmp/tmpdii6xx45/readb/fwd_1.fq
+[init_split_files:967] added file: /tmp/tmpdii6xx45/readb/rev_1.fq
+[init_split_files:967] added file: /tmp/tmpdii6xx45/readb/fwd_2.fq
+[init_split_files:967] added file: /tmp/tmpdii6xx45/readb/rev_2.fq
+[init_split_files:967] added file: /tmp/tmpdii6xx45/readb/fwd_3.fq
+[init_split_files:967] added file: /tmp/tmpdii6xx45/readb/rev_3.fq
+[split:605] start splitting. Using number of splits equals number of processing threads: 4
+[next:322] EOF FWD reached. Total reads: 2
+[next:322] EOF REV reached. Total reads: 2
+[split:717] Done splitting. Reads count: 4 Runtime sec: 0.000145608
+
+[init:135] Readfeed init done in sec [0.00500249]
+[store_to_db:292] Stored Reads statistics to DB:
+     all_reads_count= 4 all_reads_len= 368 min_read_len= 84 max_read_len= 100 total_aligned= 0 total_aligned_id= 0 total_aligned_cov= 0 total_aligned_id_cov= 0 total_denovo= 0 num_short= 0 reads_matched_per_db= TODO is_stats_calc= 0 is_total_reads_mapped_cov= 0
+
+[align:143] ==== Starting alignment ====
+[align:146] Number of cores: 4
+[align:163] Using number of Processor threads: 4
+[Refstats:60] Index Statistics calculation starts ... done in: 2.52573 sec
+[align:185] Loading index: 0 part: 1/1 Memory KB: 61 ... 
+[align:190] done in [0.814521] sec Memory KB: 502
+[align:193] Loading references ...
+[align:197] done in [0.0258379] sec. Memory KB: 523
+[align2:70] Processor 2 thread 140530449114880 started
+[align2:70] Processor 0 thread 140530432329472 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 2 thread 140530449114880 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 6.5163e-05
+[next:455] EOF FWD reached. Total reads: 1
+[align2:70] Processor 1 thread 140530440722176 started
+[align2:70] Processor 3 thread 140530893698816 started
+[next:455] EOF FWD reached. Total reads: 1
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 3 thread 140530893698816 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 1.2403e-05
+[next:455] EOF REV reached. Total reads: 1
+[next:455] EOF REV reached. Total reads: 1
+[align2:133] Processor 0 thread 140530432329472 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 0.000247798
+[align2:133] Processor 1 thread 140530440722176 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 0.000229106
+[align:220] done index: 0 part: 1 in 0.000335361 sec Memory KB: 523
+[align:227] Index and References unloaded in 0.145782 sec. Memory KB: 523
+[align:185] Loading index: 1 part: 1/1 Memory KB: 523 ... 
+[align:190] done in [0.464672] sec Memory KB: 523
+[align:193] Loading references ...
+[align:197] done in [0.0107533] sec. Memory KB: 523
+[align2:70] Processor 0 thread 140530893698816 started
+[align2:70] Processor 1 thread 140530449114880 started
+[next:455] EOF FWD reached. Total reads: 1
+[next:455] EOF FWD reached. Total reads: 1
+[align2:70] Processor 2 thread 140530440722176 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 2 thread 140530440722176 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 8.536e-06
+[align2:70] Processor 3 thread 140530432329472 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 3 thread 140530432329472 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 6.958e-06
+[next:455] EOF REV reached. Total reads: 1
+[next:455] EOF REV reached. Total reads: 1
+[align2:133] Processor 0 thread 140530893698816 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 0.000174404
+[align2:133] Processor 1 thread 140530449114880 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 0.000168683
+[align:220] done index: 1 part: 1 in 0.000260274 sec Memory KB: 523
+[align:227] Index and References unloaded in 0.0961892 sec. Memory KB: 523
+[align:185] Loading index: 2 part: 1/1 Memory KB: 523 ... 
+[align:190] done in [0.243203] sec Memory KB: 523
+[align:193] Loading references ...
+[align:197] done in [0.00363344] sec. Memory KB: 523
+[align2:70] Processor 1 thread 140530440722176 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:70] Processor 0 thread 140530432329472 started
+[align2:70] Processor 2 thread 140530449114880 started
+[next:455] EOF FWD reached. Total reads: 1
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 2 thread 140530449114880 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 9.408e-06
+[align2:70] Processor 3 thread 140530893698816 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 3 thread 140530893698816 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 5.2039e-05
+[next:455] EOF REV reached. Total reads: 1
+[next:455] EOF REV reached. Total reads: 1
+[align2:133] Processor 0 thread 140530432329472 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 0.000110509
+[align2:133] Processor 1 thread 140530440722176 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 0.000121449
+[align:220] done index: 2 part: 1 in 0.000165224 sec Memory KB: 523
+[align:227] Index and References unloaded in 0.0320581 sec. Memory KB: 523
+[align:185] Loading index: 3 part: 1/1 Memory KB: 523 ... 
+[align:190] done in [0.131002] sec Memory KB: 523
+[align:193] Loading references ...
+[align:197] done in [0.000654169] sec. Memory KB: 523
+[align2:70] Processor 1 thread 140530449114880 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:70] Processor 3 thread 140530432329472 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 3 thread 140530432329472 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 7.997e-06
+[next:455] EOF REV reached. Total reads: 1
+[align2:70] Processor 0 thread 140530893698816 started
+[align2:70] Processor 2 thread 140530440722176 started
+[next:455] EOF FWD reached. Total reads: 1
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 1 thread 140530449114880 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 9.3921e-05
+[align2:133] Processor 2 thread 140530440722176 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 1.3347e-05
+[next:455] EOF REV reached. Total reads: 1
+[align2:133] Processor 0 thread 140530893698816 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 8.7537e-05
+[align:220] done index: 3 part: 1 in 0.000236539 sec Memory KB: 523
+[align:227] Index and References unloaded in 0.0110179 sec. Memory KB: 523
+[align:185] Loading index: 4 part: 1/1 Memory KB: 523 ... 
+[align:190] done in [0.487172] sec Memory KB: 523
+[align:193] Loading references ...
+[align:197] done in [0.0119538] sec. Memory KB: 523
+[align2:70] Processor 1 thread 140530440722176 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:70] Processor 3 thread 140530893698816 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 3 thread 140530893698816 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 7.407e-06
+[next:455] EOF REV reached. Total reads: 1
+[align2:70] Processor 0 thread 140530432329472 started
+[align2:70] Processor 2 thread 140530449114880 started
+[next:455] EOF FWD reached. Total reads: 1
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 2 thread 140530449114880 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 1.3418e-05
+[align2:133] Processor 1 thread 140530440722176 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 0.000147703
+[next:455] EOF REV reached. Total reads: 1
+[align2:133] Processor 0 thread 140530432329472 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 0.000147112
+[align:220] done index: 4 part: 1 in 0.000290988 sec Memory KB: 523
+[align:227] Index and References unloaded in 0.102348 sec. Memory KB: 523
+[align:185] Loading index: 5 part: 1/1 Memory KB: 523 ... 
+[align:190] done in [0.500752] sec Memory KB: 523
+[align:193] Loading references ...
+[align:197] done in [0.0122167] sec. Memory KB: 523
+[align2:70] Processor 1 thread 140530449114880 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:70] Processor 3 thread 140530432329472 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 3 thread 140530432329472 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 6.251e-06
+[align2:70] Processor 0 thread 140530893698816 started
+[align2:70] Processor 2 thread 140530440722176 started
+[next:455] EOF FWD reached. Total reads: 1
+[next:455] EOF FWD reached. Total reads: 1
+[next:455] EOF REV reached. Total reads: 1
+[align2:133] Processor 2 thread 140530440722176 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 1.5036e-05
+[align2:133] Processor 1 thread 140530449114880 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 0.000155154
+[next:455] EOF REV reached. Total reads: 1
+[align2:133] Processor 0 thread 140530893698816 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 0.000155131
+[align:220] done index: 5 part: 1 in 0.000296552 sec Memory KB: 523
+[align:227] Index and References unloaded in 0.107463 sec. Memory KB: 523
+[align:185] Loading index: 6 part: 1/1 Memory KB: 523 ... 
+[align:190] done in [0.301953] sec Memory KB: 523
+[align:193] Loading references ...
+[align:197] done in [0.0345493] sec. Memory KB: 271
+[align2:70] Processor 1 thread 140530440722176 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:70] Processor 3 thread 140530893698816 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 3 thread 140530893698816 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 7.509e-06
+[next:455] EOF REV reached. Total reads: 1
+[align2:70] Processor 0 thread 140530432329472 started
+[align2:70] Processor 2 thread 140530449114880 started
+[next:455] EOF FWD reached. Total reads: 1
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 2 thread 140530449114880 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 1.4655e-05
+[align2:133] Processor 1 thread 140530440722176 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 0.000119574
+[next:455] EOF REV reached. Total reads: 1
+[align2:133] Processor 0 thread 140530432329472 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 0.000113841
+[align:220] done index: 6 part: 1 in 0.000261212 sec Memory KB: 271
+[align:227] Index and References unloaded in 0.0361249 sec. Memory KB: 271
+[align:185] Loading index: 7 part: 1/1 Memory KB: 271 ... 
+[align:190] done in [0.129183] sec Memory KB: 271
+[align:193] Loading references ...
+[align:197] done in [0.00522496] sec. Memory KB: 271
+[align2:70] Processor 1 thread 140530449114880 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:70] Processor 3 thread 140530432329472 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 3 thread 140530432329472 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 6.984e-06
+[next:455] EOF REV reached. Total reads: 1
+[align2:70] Processor 0 thread 140530893698816 started
+[align2:70] Processor 2 thread 140530440722176 started
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 1 thread 140530449114880 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 9.0158e-05
+[next:455] EOF FWD reached. Total reads: 1
+[align2:133] Processor 2 thread 140530440722176 done. Processed 0 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 1.6333e-05
+[next:455] EOF REV reached. Total reads: 1
+[align2:133] Processor 0 thread 140530893698816 done. Processed 2 reads. Skipped already processed: 0 reads Aligned reads (passing E-value): 0 Runtime sec: 8.0548e-05
+[align:220] done index: 7 part: 1 in 0.000208574 sec Memory KB: 271
+[align:227] Index and References unloaded in 0.0119665 sec. Memory KB: 271
+[align:237] ==== Done alignment in 3.74814 sec ====
+
+[store_to_db:292] Stored Reads statistics to DB:
+     all_reads_count= 4 all_reads_len= 368 min_read_len= 84 max_read_len= 100 total_aligned= 0 total_aligned_id= 0 total_aligned_cov= 0 total_aligned_id_cov= 0 total_denovo= 0 num_short= 0 reads_matched_per_db= TODO is_stats_calc= 0 is_total_reads_mapped_cov= 0
+
+[writeSummary:179] ==== Starting summary of alignment statistics ====
+[Refstats:60] Index Statistics calculation starts ... done in: 2.56788 sec
+[write:62] Using summary file: /tmp/tmpdii6xx45/aligned_reads.log
+[writeSummary:185] ==== Done summary in sec [2.5681] ====
+
+[writeReports:169] === Report generation starts ===
+[writeReports:184] Restored Readstats from DB: 1
+[Refstats:60] Index Statistics calculation starts ... done in: 2.5061 sec
+[validate_out_type:140] Output type: 
+1-file  2-files  paired  paired_in  paired_out  out2  sout  other  otype
+           +        +       +                      +           +     2e
+[set_num_out:163] num_out: 2
+[init:60] num_out: 2
+[validate_out_type:140] Output type: 
+1-file  2-files  paired  paired_in  paired_out  out2  sout  other  otype
+           +        +       +                      +           +     2e
+[set_num_out:163] num_out: 2
+[init:60] num_out: 2
+[writeReports:199] loading reference 0 part 1/1 ... done in 0.0184567 sec
+[report:93] Report Processor: 3 thread: 140530893698816 started. Memory KB: 152
+[report:93] Report Processor: 1 thread: 140530440722176 started. Memory KB: 152
+[next:455] EOF FWD reached. Total reads: 1
+[next:455] EOF FWD reached. Total reads: 1
+[next:455] EOF REV reached. Total reads: 1
+[next:455] EOF REV reached. Total reads: 1
+[report:152] Report processor: 3 thread: 140530893698816 done. Processed reads: 0 Invalid reads: 0 Memory KB: 152
+[report:93] Report Processor: 2 thread: 140530449114880 started. Memory KB: 152
+[report:93] Report Processor: 0 thread: 140530432329472 started. Memory KB: 152
+[next:455] EOF FWD reached. Total reads: 1
+[next:455] EOF FWD reached. Total reads: 1
+[report:152] Report processor: 1 thread: 140530440722176 done. Processed reads: 2 Invalid reads: 0 Memory KB: 152
+[next:455] EOF REV reached. Total reads: 1
+[next:455] EOF REV reached. Total reads: 1
+[report:152] Report processor: 2 thread: 140530449114880 done. Processed reads: 0 Invalid reads: 0 Memory KB: 152
+[report:152] Report processor: 0 thread: 140530432329472 done. Processed reads: 2 Invalid reads: 0 Memory KB: 152
+[writeReports:220] done reference 0 part: 1 in 0.000226981 sec
+[writeReports:226] references unloaded in 0.00200024 sec Memory KB: 152
+[merge:90] deleted /tmp/tmpdii6xx45/aligned_reads_fwd_1.fq
+[merge:90] deleted /tmp/tmpdii6xx45/aligned_reads_fwd_2.fq
+[merge:90] deleted /tmp/tmpdii6xx45/aligned_reads_fwd_3.fq
+[strip_path_sfx:169] moving /tmp/tmpdii6xx45/aligned_reads_fwd_0.fq -> "/tmp/tmpdii6xx45/aligned_reads_fwd.fq"
+[merge:90] deleted /tmp/tmpdii6xx45/aligned_reads_rev_1.fq
+[merge:90] deleted /tmp/tmpdii6xx45/aligned_reads_rev_2.fq
+[merge:90] deleted /tmp/tmpdii6xx45/aligned_reads_rev_3.fq
+[strip_path_sfx:169] moving /tmp/tmpdii6xx45/aligned_reads_rev_0.fq -> "/tmp/tmpdii6xx45/aligned_reads_rev.fq"
+[openfr:129] Opened output file /tmp/tmpdii6xx45/other_reads_fwd_1.fq for reading.
+[merge:83] merged /tmp/tmpdii6xx45/other_reads_fwd_1.fq -> /tmp/tmpdii6xx45/other_reads_fwd_0.fq
+[merge:90] deleted /tmp/tmpdii6xx45/other_reads_fwd_1.fq
+[merge:90] deleted /tmp/tmpdii6xx45/other_reads_fwd_2.fq
+[merge:90] deleted /tmp/tmpdii6xx45/other_reads_fwd_3.fq
+[strip_path_sfx:169] moving /tmp/tmpdii6xx45/other_reads_fwd_0.fq -> "/tmp/tmpdii6xx45/other_reads_fwd.fq"
+[openfr:129] Opened output file /tmp/tmpdii6xx45/other_reads_rev_1.fq for reading.
+[merge:83] merged /tmp/tmpdii6xx45/other_reads_rev_1.fq -> /tmp/tmpdii6xx45/other_reads_rev_0.fq
+[merge:90] deleted /tmp/tmpdii6xx45/other_reads_rev_1.fq
+[merge:90] deleted /tmp/tmpdii6xx45/other_reads_rev_2.fq
+[merge:90] deleted /tmp/tmpdii6xx45/other_reads_rev_3.fq
+[strip_path_sfx:169] moving /tmp/tmpdii6xx45/other_reads_rev_0.fq -> "/tmp/tmpdii6xx45/other_reads_rev.fq"
+[writeReports:268] === done Reports in 2.52879 sec ===
+

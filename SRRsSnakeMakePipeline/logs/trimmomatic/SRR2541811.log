@@ -1,0 +1,16 @@
+TrimmomaticPE: Started with arguments:
+ -threads 16 results/fastx/filtered_SRR2541811_1.fastq results/fastx/filtered_SRR2541811_2.fastq results/trimmomatic/SRR2541811_1_paired_trimmed.fastq results/trimmomatic/SRR2541811_1_unpaired_trimmed.fastq results/trimmomatic/SRR2541811_2_paired_trimmed.fastq results/trimmomatic/SRR2541811_2_unpaired_trimmed.fastq ILLUMINACLIP:../envs/trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10 SLIDINGWINDOW:5:20 LEADING:5 TRAILING:5 MINLEN:50
+java.io.FileNotFoundException: /students/2023-2024/Thema10/mvandestreek_snakemake/envs/trimmomatic-0.39/adapters/TruSeq3-PE.fa (No such file or directory)
+	at java.base/java.io.FileInputStream.open0(Native Method)
+	at java.base/java.io.FileInputStream.open(FileInputStream.java:213)
+	at java.base/java.io.FileInputStream.<init>(FileInputStream.java:152)
+	at org.usadellab.trimmomatic.fasta.FastaParser.parse(FastaParser.java:54)
+	at org.usadellab.trimmomatic.trim.IlluminaClippingTrimmer.loadSequences(IlluminaClippingTrimmer.java:110)
+	at org.usadellab.trimmomatic.trim.IlluminaClippingTrimmer.makeIlluminaClippingTrimmer(IlluminaClippingTrimmer.java:71)
+	at org.usadellab.trimmomatic.trim.TrimmerFactory.makeTrimmer(TrimmerFactory.java:32)
+	at org.usadellab.trimmomatic.Trimmomatic.createTrimmers(Trimmomatic.java:59)
+	at org.usadellab.trimmomatic.TrimmomaticPE.run(TrimmomaticPE.java:536)
+	at org.usadellab.trimmomatic.Trimmomatic.main(Trimmomatic.java:80)
+Quality encoding detected as phred33
+Input Read Pairs: 21460802 Both Surviving: 20344983 (94.80%) Forward Only Surviving: 620136 (2.89%) Reverse Only Surviving: 479891 (2.24%) Dropped: 15792 (0.07%)
+TrimmomaticPE: Completed successfully

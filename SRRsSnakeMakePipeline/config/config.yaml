@@ -1,16 +1,16 @@
 # Config file of the project
 
 # Defining the default working directory
-workdir : /homes/mvandestreek/HANZEHOGESCHOOL_GRONINGEN/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/SRRsSnakeMakePipeline
-samples_directory : /homes/mvandestreek/
-rRNA_databases : /homes/mvandestreek/HANZEHOGESCHOOL_GRONINGEN/2023-2024/thema11/dataprocessing/BioinfDataprocessingExercises/SRRsSnakeMakePipeline/sortme_references/
+workdir : /students/2023-2024/Thema10/mvandestreek_snakemake/SRRsSnakeMakePipeline
+samples_directory : /students/2023-2024/Thema10/mvandestreek_snakemake/samples/
+rRNA_databases : /students/2023-2024/Thema10/mvandestreek_snakemake/SRRsSnakeMakePipeline/sortme_references/
 
 # Samples
-samples :
-  - SS
+accessions :
+  #- SS
   #- sample1
-  #- SRR2541811
+  - SRR2541811
 
-threads : 20
+threads : 30
 
 

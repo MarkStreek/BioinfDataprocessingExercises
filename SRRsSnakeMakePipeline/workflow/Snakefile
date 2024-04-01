@@ -20,13 +20,12 @@ rule all:
     input:
         # The FASTQC Tool output isn't used in any rule,
         # therefore, we must specify this in the rule all.
-        expand("results/fastqc/{sample}_1_fastqc.html", sample=config['samples']),
-        expand("results/fastqc/{sample}_2_fastqc.html", sample=config['samples']),
-        expand("results/fastx/filtered_{sample}_1.fastq", sample=config['samples']),
-        expand("results/fastx/filtered_{sample}_2.fastq", sample=config['samples']),
-
-        fas=expand("results/trinity/{sample}_trinity.fasta", sample=config['samples']),
-        map=expand("results/trinity/{sample}_trinity.fasta.gene_trans_map", sample=config['samples']),
+        expand("results/fastqc/{accession}_1_fastqc.html", accession=config['accessions']),
+        expand("results/fastqc/{accession}_2_fastqc.html", accession=config['accessions']),
+        expand("results/fastx/filtered_{accession}_1.fastq", accession=config['accessions']),
+        expand("results/fastx/filtered_{accession}_2.fastq", accession=config['accessions']),
+        fas=expand("results/trinity/{accession}_trinity.fasta", accession=config['accessions']),
+        map=expand("results/trinity/{accession}_trinity.fasta.gene_trans_map", accession=config['accessions']),
 
 # rule download_Samples:
 #     output:
@@ -37,28 +36,28 @@ rule all:
 #     shell:
 #         "fasterq-dump {wildcards.sample} -O {config['samples_directory']}"
 
-rule get_fastq_pe:
-    output:
-        config["samples_directory"] + "{sample}_1.fastq",
-        config["samples_directory"] + "{sample}_2.fastq",
-    log:
-        "logs/download/{sample}.log"
-    params:
-        extra="--skip-technical"
-    threads:
-        config['threads']
-    wrapper:
-        "v3.5.3/bio/sra-tools/fasterq-dump"
+# rule get_fastq_pe:
+#     output:
+#         config["samples_directory"] + "{accession}_1.fastq",
+#         config["samples_directory"] + "{accession}_2.fastq",
+#     log:
+#         "logs/download/{accession}.log"
+#     params:
+#         extra="--skip-technical"
+#     threads:
+#         config['threads']
+#     wrapper:
+#         "v3.5.3/bio/sra-tools/fasterq-dump"
 
 rule fastQC:
     input:
-        config["samples_directory"] + "{sample}_1.fastq",
-        config["samples_directory"] + "{sample}_2.fastq"
+        config["samples_directory"] + "{accession}_1.fastq",
+        config["samples_directory"] + "{accession}_2.fastq"
     output:
-        "results/fastqc/{sample}_1_fastqc.html",
-        "results/fastqc/{sample}_1_fastqc.zip",
-        "results/fastqc/{sample}_2_fastqc.html",
-        "results/fastqc/{sample}_2_fastqc.zip",
+        "results/fastqc/{accession}_1_fastqc.html",
+        "results/fastqc/{accession}_1_fastqc.zip",
+        "results/fastqc/{accession}_2_fastqc.html",
+        "results/fastqc/{accession}_2_fastqc.zip",
     message:
         "Running FastQC on {input}"
     conda:
@@ -74,11 +73,11 @@ rule fastx_toolkit:
     and then prints the output.
     """
     input:
-        s1=config["samples_directory"] + "{sample}_1.fastq",
-        s2=config["samples_directory"] + "{sample}_2.fastq"
+        s1=config["samples_directory"] + "{accession}_1.fastq",
+        s2=config["samples_directory"] + "{accession}_2.fastq"
     output:
-        s1="results/fastx/filtered_{sample}_1.fastq",
-        s2="results/fastx/filtered_{sample}_2.fastq"
+        s1="results/fastx/filtered_{accession}_1.fastq",
+        s2="results/fastx/filtered_{accession}_2.fastq"
     message:
         "Running fastx_toolkit on {input}"
     conda:
@@ -91,19 +90,19 @@ rule fastx_toolkit:
 
 rule trimmomatic_pe:
     input:
-        r1="results/fastx/filtered_{sample}_1.fastq",
-        r2="results/fastx/filtered_{sample}_2.fastq"
+        r1="results/fastx/filtered_{accession}_1.fastq",
+        r2="results/fastx/filtered_{accession}_2.fastq"
     output:
-        r1="results/trimmomatic/{sample}_1_paired_trimmed.fastq",
-        r2="results/trimmomatic/{sample}_2_paired_trimmed.fastq",
-        r1_unpaired="results/trimmomatic/{sample}_1_unpaired_trimmed.fastq",
-        r2_unpaired="results/trimmomatic/{sample}_2_unpaired_trimmed.fastq"
+        r1="results/trimmomatic/{accession}_1_paired_trimmed.fastq",
+        r2="results/trimmomatic/{accession}_2_paired_trimmed.fastq",
+        r1_unpaired="results/trimmomatic/{accession}_1_unpaired_trimmed.fastq",
+        r2_unpaired="results/trimmomatic/{accession}_2_unpaired_trimmed.fastq"
     log:
-        "logs/trimmomatic/{sample}.log"
+        "logs/trimmomatic/{accession}.log"
     params:
         # Specify the trimmer options
         trimmer=[
-            "ILLUMINACLIP:../envs/trimmomatic-0.39/adapters/TruSeq3-PE.fa:2:30:10",
+            "ILLUMINACLIP:../adapters/TruSeq3-PE.fa:2:30:10",
             "SLIDINGWINDOW:5:20",
             "LEADING:5",
             "TRAILING:5",
@@ -117,10 +116,10 @@ rule trimmomatic_pe:
 
 rule mergeFastQ:
     input:
-        r1="results/trimmomatic/{sample}_1_paired_trimmed.fastq",
-        r2="results/trimmomatic/{sample}_2_paired_trimmed.fastq"
+        r1="results/trimmomatic/{accession}_1_paired_trimmed.fastq",
+        r2="results/trimmomatic/{accession}_2_paired_trimmed.fastq"
     output:
-        "results/sortmerna/merged/{sample}_interleaved.fastq"
+        "results/sortmerna/merged/{accession}_interleaved.fastq"
     conda:
         "../envs/sortmerna.yaml"
     shell:
@@ -140,10 +139,10 @@ rule sortMeRNA:
         ref6=config['rRNA_databases'] + "silva-euk-28s-id98.fasta",
         ref7=config['rRNA_databases'] + "rfam-5s-database-id98.fasta", 
         ref8=config['rRNA_databases'] + "rfam-5.8s-database-id98.fasta",
-        sample="results/sortmerna/merged/{sample}_interleaved.fastq",
+        accession="results/sortmerna/merged/{accession}_interleaved.fastq",
     output:
-        nonRNA="results/sortmerna/{sample}_non_rRNA.fastq",
-        alignedRNA="results/sortmerna/{sample}_rRNA.fastq",
+        nonRNA="results/sortmerna/{accession}_non_rRNA.fastq",
+        alignedRNA="results/sortmerna/{accession}_rRNA.fastq",
     conda:
         "../envs/sortmerna.yaml",
     threads: 
@@ -151,17 +150,17 @@ rule sortMeRNA:
     shell:
         """
         rm -rf ~/sortmerna/run/kvdb/*
-        sortmerna --reads {input.sample} --ref {input.ref1} --ref {input.ref2} --ref {input.ref3} --num_alignments 1 --fastx --aligned {output.alignedRNA} --other {output.nonRNA} -a {threads} -m 64000 --paired_in -v
+        sortmerna --reads {input.accession} --ref {input.ref1} --ref {input.ref2} --ref {input.ref3} --num_alignments 1 --fastx --aligned {output.alignedRNA} --other {output.nonRNA} -a {threads} -m 64000 --paired_in -v
         mv {output.alignedRNA}.fq {output.alignedRNA} &&
         mv {output.nonRNA}.fq {output.nonRNA}
         """
 
 rule unmergeFastQ:
     input:
-        "results/sortmerna/{sample}_non_rRNA.fastq",
+        "results/sortmerna/{accession}_non_rRNA.fastq",
     output:
-        r1="results/sortmerna/unmerged/{sample}_non_rRNA_1.fastq",
-        r2="results/sortmerna/unmerged/{sample}_non_rRNA_2.fastq",
+        r1="results/sortmerna/unmerged/{accession}_non_rRNA_1.fastq",
+        r2="results/sortmerna/unmerged/{accession}_non_rRNA_2.fastq",
     shell:
         "workflow/scripts/unmerge-paired-reads.sh {input} {output.r1} {output.r2}"
 
@@ -170,12 +169,12 @@ rule trinity_assembly:
     Trinity is a de novo transcriptome assembler
     """
     input:
-        left=["results/sortmerna/unmerged/{sample}_non_rRNA_1.fastq"],
-        right=["results/sortmerna/unmerged/{sample}_non_rRNA_2.fastq"],
+        left=["results/sortmerna/unmerged/{accession}_non_rRNA_1.fastq"],
+        right=["results/sortmerna/unmerged/{accession}_non_rRNA_2.fastq"],
     output:
-        dir=temp("/tmp/{sample}_trinity_out"),
-        fas="results/trinity/{sample}_trinity.fasta",
-        map="results/trinity/{sample}_trinity.fasta.gene_trans_map"
+        dir=temp("/tmp/{accession}_trinity_out"),
+        fas="results/trinity/{accession}_trinity.fasta",
+        map="results/trinity/{accession}_trinity.fasta.gene_trans_map"
     params:
         extra="",
     threads:
