@@ -18,8 +18,6 @@ This directory contains the main pipeline for the course. The pipeline is (partl
 
 </details>
 
-------
-
 ## Quick start
 
 The pipeline can be used by running the following command:
