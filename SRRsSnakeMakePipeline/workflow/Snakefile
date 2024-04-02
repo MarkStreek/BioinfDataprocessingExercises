@@ -22,19 +22,8 @@ rule all:
         # therefore, we must specify this in the rule all.
         expand("results/fastqc/{accession}_1_fastqc.html", accession=config['accessions']),
         expand("results/fastqc/{accession}_2_fastqc.html", accession=config['accessions']),
-        
-        # fas=expand("results/trinity/trinity_{accession}.Trinity.fasta",accession=config['accessions']),
-        # map=expand("results/trinity/trinity_{accession}.Trinity.fasta.gene_trans_map",accession=config['accessions']),
-        expand("results/mapped/{accession}.sam",accession=config['accessions']),
-
-# rule download_Samples:
-#     output:
-#         config["samples_directory"] + "{sample}_1.fastq",
-#         config["samples_directory"] + "{sample}_2.fastq"
-#     log:
-#         "logs/download/{sample}.log"
-#     shell:
-#         "fasterq-dump {wildcards.sample} -O {config['samples_directory']}"
+        # Last file of the pipeline
+        expand("results/plots/{accession}_reads.jpg", accession=config['accessions']),
 
 # rule get_fastq_pe:
 #     output:
@@ -208,7 +197,7 @@ rule bowtie2_build:
 
 rule bowtie2:
     input:
-        sample=["results/sortmerna/unmerged/{accession}_non_rRNA_1.fastq", "results/sortmerna/unmerged/{accession}_non_rRNA_2.fastq"],
+        sample=[config["samples_directory"] + "{accession}_1.fastq", config["samples_directory"] + "{accession}_2.fastq" ],
         idx=multiext(
             "results/bowtie2_build/{accession}_genome",
             ".1.bt2",
@@ -243,4 +232,10 @@ rule bam_to_sam:
     shell:
         "samtools view -h {input} > {output} 2> {log} --threads {threads}"
     
-
+rule plot_reads:
+    input:
+        "results/mapped/{accession}.sam"
+    output:
+        "results/plots/{accession}_reads.jpg"
+    script:
+        "scripts/plot.py"
