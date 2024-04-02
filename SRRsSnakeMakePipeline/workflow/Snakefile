@@ -10,7 +10,9 @@ Copyright:
     BFV3 2023-2024
 
 Run pipeline:
-snakemake -c 1 --use-conda --conda-frontend conda
+snakemake -c all --use-conda --conda-frontend conda
+pip3 install pysam
+pip3 intall matplotlib
 """
 
 configfile: "config/config.yaml",
@@ -18,224 +20,46 @@ workdir: config['workdir'],
 
 rule all:
     input:
-        # The FASTQC Tool output isn't used in any rule,
-        # therefore, we must specify this in the rule all.
-        expand("results/fastqc/{accession}_1_fastqc.html", accession=config['accessions']),
-        expand("results/fastqc/{accession}_2_fastqc.html", accession=config['accessions']),
-        # Last file of the pipeline
-        expand("results/plots/{accession}_reads.jpg", accession=config['accessions']),
+        # expand("results/fastqc/{accession}_1_fastqc.html", accession=config['accessions']),
+        # expand("results/fastqc/{accession}_2_fastqc.html", accession=config['accessions']),
+        # expand("results/plots/{accession}_reads.jpg", accession=config['accessions']),
+        expand(config["samples_directory"] + "{accession}_1.fastq", accession=config['accessions']),
+        expand(config["samples_directory"] + "{accession}_2.fastq", accession=config['accessions']),
 
-# rule get_fastq_pe:
+rule get_fastq_pe:
+    output:
+        config["samples_directory"] + "{accession}_1.fastq",
+        config["samples_directory"] + "{accession}_2.fastq",
+    log:
+        "logs/download/{accession}.log"
+    params:
+        extra="--skip-technical"
+    threads:
+        config['threads']
+    wrapper:
+        "v3.5.3/bio/sra-tools/fasterq-dump"
+
+# rule trinity_assembly:
+#     """
+#     Trinity is a de novo transcriptome assembler
+#     """
+#     input:
+#         left=["results/sortmerna/unmerged/{accession}_non_rRNA_1.fastq"],
+#         right=["results/sortmerna/unmerged/{accession}_non_rRNA_2.fastq"],
 #     output:
-#         config["samples_directory"] + "{accession}_1.fastq",
-#         config["samples_directory"] + "{accession}_2.fastq",
-#     log:
-#         "logs/download/{accession}.log"
+#         dir=temp(directory("results/trinity/trinity_{accession}/")),
+#         fas="results/trinity/trinity_{accession}.Trinity.fasta",
+#         map="results/trinity/trinity_{accession}.Trinity.fasta.gene_trans_map",
 #     params:
-#         extra="--skip-technical"
+#         extra="",
 #     threads:
 #         config['threads']
+#     resources:
+#         mem_gb=config['memory_gb']
 #     wrapper:
-#         "v3.5.3/bio/sra-tools/fasterq-dump"
+#         "v3.5.3/bio/trinity"
 
-rule fastQC:
-    input:
-        config["samples_directory"] + "{accession}_1.fastq",
-        config["samples_directory"] + "{accession}_2.fastq"
-    output:
-        "results/fastqc/{accession}_1_fastqc.html",
-        "results/fastqc/{accession}_1_fastqc.zip",
-        "results/fastqc/{accession}_2_fastqc.html",
-        "results/fastqc/{accession}_2_fastqc.zip",
-    message:
-        "Running FastQC on {input}"
-    conda:
-        "../envs/FASTQC.yaml"
-    params:
-        threads=config['threads']
-    shell:
-        "fastqc -t {params.threads} {input} -o results/fastqc/"
-
-rule fastx_toolkit:
-    """
-    This tool has verbose specified, but runs first all operations, 
-    and then prints the output.
-    """
-    input:
-        s1=config["samples_directory"] + "{accession}_1.fastq",
-        s2=config["samples_directory"] + "{accession}_2.fastq"
-    output:
-        s1="results/fastx/filtered_{accession}_1.fastq",
-        s2="results/fastx/filtered_{accession}_2.fastq"
-    message:
-        "Running fastx_toolkit on {input}"
-    conda:
-        "../envs/FASTX_TOOLKIT.yaml"
-    shell:
-        """
-        fastq_quality_filter -v -q 20 -p 75 -i {input.s1} -o {output.s1}
-        fastq_quality_filter -v -q 20 -p 75 -i {input.s2} -o {output.s2}
-        """
-
-rule trimmomatic_pe:
-    input:
-        r1="results/fastx/filtered_{accession}_1.fastq",
-        r2="results/fastx/filtered_{accession}_2.fastq"
-    output:
-        r1="results/trimmomatic/{accession}_1_paired_trimmed.fastq",
-        r2="results/trimmomatic/{accession}_2_paired_trimmed.fastq",
-        r1_unpaired="results/trimmomatic/{accession}_1_unpaired_trimmed.fastq",
-        r2_unpaired="results/trimmomatic/{accession}_2_unpaired_trimmed.fastq"
-    log:
-        "logs/trimmomatic/{accession}.log"
-    params:
-        # Specify the trimmer options
-        trimmer=[
-            "ILLUMINACLIP:../adapters/TruSeq3-PE.fa:2:30:10",
-            "SLIDINGWINDOW:5:20",
-            "LEADING:5",
-            "TRAILING:5",
-            "MINLEN:50"],
-        compression_level="-9"
-    threads: 16
-    resources:
-        mem_mb=1024
-    wrapper:
-        "v3.5.2/bio/trimmomatic/pe"
-
-rule mergeFastQ:
-    input:
-        r1="results/trimmomatic/{accession}_1_paired_trimmed.fastq",
-        r2="results/trimmomatic/{accession}_2_paired_trimmed.fastq"
-    output:
-        "results/sortmerna/merged/{accession}_interleaved.fastq"
-    conda:
-        "../envs/sortmerna.yaml"
-    shell:
-        "workflow/scripts/merge-paired-reads.sh {input.r1} {input.r2} {output}"
-
-rule sortMeRNA:
-    """
-    SortMeRNA uses a Work directory with the default location $USER/sortmerna/run/. Sortmerna also checks kvdb directory. 
-    This directory has to be Empty prior each new run. Therefore, we have to empty this before starting a new run.
-    """
-    input:
-        ref1=config['rRNA_databases'] + "silva-bac-16s-id90.fasta",
-        ref2=config['rRNA_databases'] + "silva-bac-23s-id98.fasta",
-        ref3=config['rRNA_databases'] + "silva-arc-16s-id95.fasta", 
-        ref4=config['rRNA_databases'] + "silva-arc-23s-id98.fasta",
-        ref5=config['rRNA_databases'] + "silva-euk-18s-id95.fasta",
-        ref6=config['rRNA_databases'] + "silva-euk-28s-id98.fasta",
-        ref7=config['rRNA_databases'] + "rfam-5s-database-id98.fasta", 
-        ref8=config['rRNA_databases'] + "rfam-5.8s-database-id98.fasta",
-        accession="results/sortmerna/merged/{accession}_interleaved.fastq",
-    output:
-        nonRNA="results/sortmerna/{accession}_non_rRNA.fastq",
-        alignedRNA="results/sortmerna/{accession}_rRNA.fastq",
-    conda:
-        "../envs/sortmerna.yaml",
-    threads: 
-        threads=config['threads'],
-    shell:
-        """
-        rm -rf ~/sortmerna/run/kvdb/*
-        sortmerna --reads {input.accession} --ref {input.ref1} --ref {input.ref2} --ref {input.ref3} --num_alignments 1 --fastx --aligned {output.alignedRNA} --other {output.nonRNA} -a {threads} -m 64000 --paired_in -v
-        mv {output.alignedRNA}.fq {output.alignedRNA} &&
-        mv {output.nonRNA}.fq {output.nonRNA}
-        """
-
-rule unmergeFastQ:
-    input:
-        "results/sortmerna/{accession}_non_rRNA.fastq",
-    output:
-        r1="results/sortmerna/unmerged/{accession}_non_rRNA_1.fastq",
-        r2="results/sortmerna/unmerged/{accession}_non_rRNA_2.fastq",
-    shell:
-        "workflow/scripts/unmerge-paired-reads.sh {input} {output.r1} {output.r2}"
-
-rule trinity_assembly:
-    """
-    Trinity is a de novo transcriptome assembler
-    """
-    input:
-        left=["results/sortmerna/unmerged/{accession}_non_rRNA_1.fastq"],
-        right=["results/sortmerna/unmerged/{accession}_non_rRNA_2.fastq"],
-    output:
-        dir=temp(directory("results/trinity/trinity_{accession}/")),
-        fas="results/trinity/trinity_{accession}.Trinity.fasta",
-        map="results/trinity/trinity_{accession}.Trinity.fasta.gene_trans_map",
-    params:
-        extra="",
-    threads:
-        config['threads']
-    resources:
-        mem_gb=config['memory_gb']
-    wrapper:
-        "v3.5.3/bio/trinity"
-
-rule bowtie2_build:
-    input:
-        ref="results/trinity/trinity_{accession}.Trinity.fasta",
-    output:
-        multiext(
-            "results/bowtie2_build/{accession}_genome",
-            ".1.bt2",
-            ".2.bt2",
-            ".3.bt2",
-            ".4.bt2",
-            ".rev.1.bt2",
-            ".rev.2.bt2",
-        ),
-    log:
-        "logs/bowtie2/{accession}.log",
-    params:
-        extra="",
-    threads:
-        config['threads']
-    wrapper:
-        "v3.7.0/bio/bowtie2/build"
-
-rule bowtie2:
-    input:
-        sample=[config["samples_directory"] + "{accession}_1.fastq", config["samples_directory"] + "{accession}_2.fastq" ],
-        idx=multiext(
-            "results/bowtie2_build/{accession}_genome",
-            ".1.bt2",
-            ".2.bt2",
-            ".3.bt2",
-            ".4.bt2",
-            ".rev.1.bt2",
-            ".rev.2.bt2",
-        ),
-    output:
-        "results/mapped/{accession}.bam",
-    log:
-        "logs/bowtie2/{accession}.log",
-    params:
-        extra="",
-    threads:
-        config['threads']
-    wrapper:
-        "v3.7.0/bio/bowtie2/align"
-
-rule bam_to_sam:
-    input:
-        "results/mapped/{accession}.bam"
-    output:
-        "results/mapped/{accession}.sam"
-    log:
-        "logs/samtools/{accession}.log"
-    conda:
-        "../envs/FASTQC.yaml"
-    threads:
-        config['threads']
-    shell:
-        "samtools view -h {input} > {output} 2> {log} --threads {threads}"
-    
-rule plot_reads:
-    input:
-        "results/mapped/{accession}.sam"
-    output:
-        "results/plots/{accession}_reads.jpg"
-    script:
-        "scripts/plot.py"
+# include: "rules/quality_reports.smk"
+# include: "rules/trimming.smk"
+# include: "rules/remove_rRNA.smk"
+# include: "rules/map_raw_reads.smk"
