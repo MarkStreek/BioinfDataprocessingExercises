@@ -1,0 +1,6 @@
+name : Environment for ConvertBAM_SAM
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - samtools

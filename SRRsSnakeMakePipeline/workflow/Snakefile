@@ -22,10 +22,10 @@ rule all:
         # therefore, we must specify this in the rule all.
         expand("results/fastqc/{accession}_1_fastqc.html", accession=config['accessions']),
         expand("results/fastqc/{accession}_2_fastqc.html", accession=config['accessions']),
-        #r1=expand("results/sortmerna/unmerged/{accession}_non_rRNA_1.fastq", accession=config['accessions']),
-        #r2=expand("results/sortmerna/unmerged/{accession}_non_rRNA_2.fastq", accession=config['accessions']),
-        fas=expand("results/trinity/{accession}_trinity.fasta", accession=config['accessions']),
-        map=expand("results/trinity/{accession}_trinity.fasta.gene_trans_map", accession=config['accessions']),
+        
+        # fas=expand("results/trinity/trinity_{accession}.Trinity.fasta",accession=config['accessions']),
+        # map=expand("results/trinity/trinity_{accession}.Trinity.fasta.gene_trans_map",accession=config['accessions']),
+        expand("results/mapped/{accession}.sam",accession=config['accessions']),
 
 # rule download_Samples:
 #     output:
@@ -172,14 +172,75 @@ rule trinity_assembly:
         left=["results/sortmerna/unmerged/{accession}_non_rRNA_1.fastq"],
         right=["results/sortmerna/unmerged/{accession}_non_rRNA_2.fastq"],
     output:
-        dir=temp("results/{accession}_trinity_out"),
-        fas="results/trinity/{accession}_trinity.fasta",
-        map="results/trinity/{accession}_trinity.fasta.gene_trans_map"
+        dir=temp(directory("results/trinity/trinity_{accession}/")),
+        fas="results/trinity/trinity_{accession}.Trinity.fasta",
+        map="results/trinity/trinity_{accession}.Trinity.fasta.gene_trans_map",
     params:
-        extra="--seqType fastq --JM 100G --max_cov 50 --pairs_together --PARALLEL_STATS --CPU 8",
+        extra="",
     threads:
         config['threads']
     resources:
-        mem_gb=3
+        mem_gb=config['memory_gb']
     wrapper:
         "v3.5.3/bio/trinity"
+
+rule bowtie2_build:
+    input:
+        ref="results/trinity/trinity_{accession}.Trinity.fasta",
+    output:
+        multiext(
+            "results/bowtie2_build/{accession}_genome",
+            ".1.bt2",
+            ".2.bt2",
+            ".3.bt2",
+            ".4.bt2",
+            ".rev.1.bt2",
+            ".rev.2.bt2",
+        ),
+    log:
+        "logs/bowtie2/{accession}.log",
+    params:
+        extra="",
+    threads:
+        config['threads']
+    wrapper:
+        "v3.7.0/bio/bowtie2/build"
+
+rule bowtie2:
+    input:
+        sample=["results/sortmerna/unmerged/{accession}_non_rRNA_1.fastq", "results/sortmerna/unmerged/{accession}_non_rRNA_2.fastq"],
+        idx=multiext(
+            "results/bowtie2_build/{accession}_genome",
+            ".1.bt2",
+            ".2.bt2",
+            ".3.bt2",
+            ".4.bt2",
+            ".rev.1.bt2",
+            ".rev.2.bt2",
+        ),
+    output:
+        "results/mapped/{accession}.bam",
+    log:
+        "logs/bowtie2/{accession}.log",
+    params:
+        extra="",
+    threads:
+        config['threads']
+    wrapper:
+        "v3.7.0/bio/bowtie2/align"
+
+rule bam_to_sam:
+    input:
+        "results/mapped/{accession}.bam"
+    output:
+        "results/mapped/{accession}.sam"
+    log:
+        "logs/samtools/{accession}.log"
+    conda:
+        "../envs/FASTQC.yaml"
+    threads:
+        config['threads']
+    shell:
+        "samtools view -h {input} > {output} 2> {log} --threads {threads}"
+    
+
