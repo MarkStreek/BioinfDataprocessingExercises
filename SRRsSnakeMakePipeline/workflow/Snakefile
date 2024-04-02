@@ -22,8 +22,8 @@ rule all:
         # therefore, we must specify this in the rule all.
         expand("results/fastqc/{accession}_1_fastqc.html", accession=config['accessions']),
         expand("results/fastqc/{accession}_2_fastqc.html", accession=config['accessions']),
-        expand("results/fastx/filtered_{accession}_1.fastq", accession=config['accessions']),
-        expand("results/fastx/filtered_{accession}_2.fastq", accession=config['accessions']),
+        #r1=expand("results/sortmerna/unmerged/{accession}_non_rRNA_1.fastq", accession=config['accessions']),
+        #r2=expand("results/sortmerna/unmerged/{accession}_non_rRNA_2.fastq", accession=config['accessions']),
         fas=expand("results/trinity/{accession}_trinity.fasta", accession=config['accessions']),
         map=expand("results/trinity/{accession}_trinity.fasta.gene_trans_map", accession=config['accessions']),
 
@@ -172,11 +172,11 @@ rule trinity_assembly:
         left=["results/sortmerna/unmerged/{accession}_non_rRNA_1.fastq"],
         right=["results/sortmerna/unmerged/{accession}_non_rRNA_2.fastq"],
     output:
-        dir=temp("/tmp/{accession}_trinity_out"),
+        dir=temp("results/{accession}_trinity_out"),
         fas="results/trinity/{accession}_trinity.fasta",
         map="results/trinity/{accession}_trinity.fasta.gene_trans_map"
     params:
-        extra="",
+        extra="--seqType fastq --JM 100G --max_cov 50 --pairs_together --PARALLEL_STATS --CPU 8",
     threads:
         config['threads']
     resources:
