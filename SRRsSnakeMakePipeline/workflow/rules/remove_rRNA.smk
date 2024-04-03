@@ -15,14 +15,14 @@ rule sortMeRNA:
     This directory has to be Empty prior each new run. Therefore, we have to empty this before starting a new run.
     """
     input:
-        ref1=config['rRNA_databases'] + "silva-bac-16s-id90.fasta",
-        ref2=config['rRNA_databases'] + "silva-bac-23s-id98.fasta",
-        ref3=config['rRNA_databases'] + "silva-arc-16s-id95.fasta", 
-        ref4=config['rRNA_databases'] + "silva-arc-23s-id98.fasta",
-        ref5=config['rRNA_databases'] + "silva-euk-18s-id95.fasta",
-        ref6=config['rRNA_databases'] + "silva-euk-28s-id98.fasta",
-        ref7=config['rRNA_databases'] + "rfam-5s-database-id98.fasta", 
-        ref8=config['rRNA_databases'] + "rfam-5.8s-database-id98.fasta",
+        ref1=config['workdir'] + config['rRNA_databases'] + "silva-bac-16s-id90.fasta",
+        ref2=config['workdir'] + config['rRNA_databases'] + "silva-bac-23s-id98.fasta",
+        ref3=config['workdir'] + config['rRNA_databases'] + "silva-arc-16s-id95.fasta", 
+        ref4=config['workdir'] + config['rRNA_databases'] + "silva-arc-23s-id98.fasta",
+        ref5=config['workdir'] + config['rRNA_databases'] + "silva-euk-18s-id95.fasta",
+        ref6=config['workdir'] + config['rRNA_databases'] + "silva-euk-28s-id98.fasta",
+        ref7=config['workdir'] + config['rRNA_databases'] + "rfam-5s-database-id98.fasta", 
+        ref8=config['workdir'] + config['rRNA_databases'] + "rfam-5.8s-database-id98.fasta",
         accession="results/sortmerna/merged/{accession}_interleaved.fastq",
     output:
         nonRNA="results/sortmerna/{accession}_non_rRNA.fastq",

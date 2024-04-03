@@ -3,7 +3,7 @@
 # Defining the default working directory
 workdir : /students/2023-2024/Thema11/mvandestreek_snakemake/BioinfDataprocessingExercises/SRRsSnakeMakePipeline
 samples_directory : /students/2023-2024/Thema11/mvandestreek_snakemake/samples/
-rRNA_databases : /students/2023-2024/Thema11/mvandestreek_snakemake/BioinfDataprocessingExercises/SRRsSnakeMakePipeline/sortme_references/
+rRNA_databases : /sortme_references/
 
 # Samples
 accessions :

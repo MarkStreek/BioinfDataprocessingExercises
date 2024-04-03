@@ -20,9 +20,9 @@ workdir: config['workdir'],
 
 rule all:
     input:
-        # expand("results/fastqc/{accession}_1_fastqc.html", accession=config['accessions']),
-        # expand("results/fastqc/{accession}_2_fastqc.html", accession=config['accessions']),
-        # expand("results/plots/{accession}_reads.jpg", accession=config['accessions']),
+        expand("results/fastqc/{accession}_1_fastqc.html", accession=config['accessions']),
+        expand("results/fastqc/{accession}_2_fastqc.html", accession=config['accessions']),
+        expand("results/plots/{accession}_reads.jpg", accession=config['accessions']),
         expand(config["samples_directory"] + "{accession}_1.fastq", accession=config['accessions']),
         expand(config["samples_directory"] + "{accession}_2.fastq", accession=config['accessions']),
 
@@ -39,27 +39,27 @@ rule get_fastq_pe:
     wrapper:
         "v3.5.3/bio/sra-tools/fasterq-dump"
 
-# rule trinity_assembly:
-#     """
-#     Trinity is a de novo transcriptome assembler
-#     """
-#     input:
-#         left=["results/sortmerna/unmerged/{accession}_non_rRNA_1.fastq"],
-#         right=["results/sortmerna/unmerged/{accession}_non_rRNA_2.fastq"],
-#     output:
-#         dir=temp(directory("results/trinity/trinity_{accession}/")),
-#         fas="results/trinity/trinity_{accession}.Trinity.fasta",
-#         map="results/trinity/trinity_{accession}.Trinity.fasta.gene_trans_map",
-#     params:
-#         extra="",
-#     threads:
-#         config['threads']
-#     resources:
-#         mem_gb=config['memory_gb']
-#     wrapper:
-#         "v3.5.3/bio/trinity"
+rule trinity_assembly:
+    """
+    Trinity is a de novo transcriptome assembler
+    """
+    input:
+        left=["results/sortmerna/unmerged/{accession}_non_rRNA_1.fastq"],
+        right=["results/sortmerna/unmerged/{accession}_non_rRNA_2.fastq"],
+    output:
+        dir=temp(directory("results/trinity/trinity_{accession}/")),
+        fas="results/trinity/trinity_{accession}.Trinity.fasta",
+        map="results/trinity/trinity_{accession}.Trinity.fasta.gene_trans_map",
+    params:
+        extra="",
+    threads:
+        config['threads']
+    resources:
+        mem_gb=config['memory_gb']
+    wrapper:
+        "v3.5.3/bio/trinity"
 
-# include: "rules/quality_reports.smk"
-# include: "rules/trimming.smk"
-# include: "rules/remove_rRNA.smk"
-# include: "rules/map_raw_reads.smk"
+include: "rules/quality_reports.smk"
+include: "rules/trimming.smk"
+include: "rules/remove_rRNA.smk"
+include: "rules/map_raw_reads.smk"
