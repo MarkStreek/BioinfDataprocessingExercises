@@ -8,11 +8,7 @@ rRNA_databases : /sortme_references/
 # Samples
 accessions :
   - SS
-  #- sample1
   #- SRR2541811
 
 threads : 30
 memory_gb : 64
-memory_mb : 64000
-
-

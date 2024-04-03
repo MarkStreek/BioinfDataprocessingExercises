@@ -1,65 +1,39 @@
 """
-The main file of this project. All the rules will be imported from seperate files.
+The main file of this project. All the rules will be imported from seperate files
 Goal: 
     Create a de novo assembly from paired end sequences with quality assesments
 Author: 
     Mark van de Streek
 Date: 
-    2024-03-16
+    2024-04-05
 Copyright: 
     BFV3 2023-2024
 
 Run pipeline:
-snakemake -c all --use-conda --conda-frontend conda
-pip3 install pysam
-pip3 intall matplotlib
+    snakemake -c all --use-conda --conda-frontend conda
+
+> See the readme for more information about this pipeline
 """
 
+# Set the configuarion file and specify working directory
 configfile: "config/config.yaml",
 workdir: config['workdir'],
 
 rule all:
     input:
+        # The trimmomatic files needs be called here, because they are not used futher in the pipeline
         expand("results/fastqc/{accession}_1_fastqc.html", accession=config['accessions']),
         expand("results/fastqc/{accession}_2_fastqc.html", accession=config['accessions']),
+        # Calling the last vizualisation file of the pipeline
         expand("results/plots/{accession}_reads.jpg", accession=config['accessions']),
-        expand(config["samples_directory"] + "{accession}_1.fastq", accession=config['accessions']),
-        expand(config["samples_directory"] + "{accession}_2.fastq", accession=config['accessions']),
+        # # SAMPLES
+        # expand(config["samples_directory"] + "{accession}_1.fastq", accession=config['accessions']),
+        # expand(config["samples_directory"] + "{accession}_2.fastq", accession=config['accessions']),
 
-rule get_fastq_pe:
-    output:
-        config["samples_directory"] + "{accession}_1.fastq",
-        config["samples_directory"] + "{accession}_2.fastq",
-    log:
-        "logs/download/{accession}.log"
-    params:
-        extra="--skip-technical"
-    threads:
-        config['threads']
-    wrapper:
-        "v3.5.3/bio/sra-tools/fasterq-dump"
-
-rule trinity_assembly:
-    """
-    Trinity is a de novo transcriptome assembler
-    """
-    input:
-        left=["results/sortmerna/unmerged/{accession}_non_rRNA_1.fastq"],
-        right=["results/sortmerna/unmerged/{accession}_non_rRNA_2.fastq"],
-    output:
-        dir=temp(directory("results/trinity/trinity_{accession}/")),
-        fas="results/trinity/trinity_{accession}.Trinity.fasta",
-        map="results/trinity/trinity_{accession}.Trinity.fasta.gene_trans_map",
-    params:
-        extra="",
-    threads:
-        config['threads']
-    resources:
-        mem_gb=config['memory_gb']
-    wrapper:
-        "v3.5.3/bio/trinity"
-
+# Include all the rules from the seperate files
+include: "rules/data_aqcuisition.smk"
 include: "rules/quality_reports.smk"
 include: "rules/trimming.smk"
 include: "rules/remove_rRNA.smk"
+include: "rules/assembly.smk"
 include: "rules/map_raw_reads.smk"
