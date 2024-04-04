@@ -25,12 +25,14 @@ This directory contains the main pipeline for the course. The pipeline is (partl
     - [Used tools/packages](#used-toolspackages)
     - [Snakemake](#snakemake)
     - [Conda](#conda)
+  - [Project structure](#project-structure)
   - [Important steps before running the pipeline](#important-steps-before-running-the-pipeline)
     - [Installing the pipeline](#installing-the-pipeline)
     - [Setting up the environment](#setting-up-the-environment)
     - [Setting up parameters and paths](#setting-up-parameters-and-paths)
   - [Graphical overview of the pipeline](#graphical-overview-of-the-pipeline)
   - [Example output](#example-output)
+  - [Troubleshooting](#troubleshooting)
 
 </details>
 
@@ -91,6 +93,28 @@ This pipeline is created using [Snakemake](https://snakemake.readthedocs.io/en/s
 Conda is the environment manager that is used to create the environments for the pipeline. The tools needed for this project are not manually installed, but are installed using conda. This way, the pipeline is more reproducible and scalable. And easier to install on different systems.
 
 The tools are stored inside channels. The channels are defined in a .yaml file. Snakemake uses this file to create the environments. It looks inside the files for which channels are needed and installs the tools from the channels.
+
+## Project structure
+
+The project structure is as follows:
+
+```bash
+.
+|-- adapters
+|-- config
+|-- envs
+|   |-- environments directories...
+|-- images
+|-- logs
+|   |-- logging directories...
+|-- results
+|   |-- results directories...
+|-- sortme_references
+`-- workflow
+    |-- rules
+    |-- Snakefile
+    `-- scripts
+```
 
 ## Important steps before running the pipeline
 
@@ -191,3 +215,22 @@ accessions :
 Output visualization:
 
 ![Alt Text](results/plots/SRR2541811_reads.jpg)
+
+## Troubleshooting
+
+In case of errors while creating conda environments, run the following commands while having your environment activated:
+
+```bash
+conda config --set channel_priority strict
+conda config --add channels defaults
+conda config --add channels conda-forge
+conda config --add channels bioconda
+```
+
+This will set the channel priority to strict and add the necessary channels to the conda configuration.
+
+In case of other errors, please contact the author of this pipeline:
+
+- Mark van de Streek
+- [Sent e-mail](mailto:m.van.de.streek@st.hanze.nl)
+- [GitHub](https://Github.com/MarkStreek)
