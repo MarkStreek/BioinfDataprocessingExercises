@@ -15,9 +15,10 @@ Run pipeline:
 > See the readme for more information about this pipeline
 """
 
-# Set the configuarion file and specify working directory
-configfile: "config/config.yaml",
-workdir: config['workdir'],
+# Set the configuarion file, specify working directory and report
+configfile: "config/config.yaml"
+workdir: config['workdir']
+report: "report/workflow.rst"
 
 rule all:
     input:

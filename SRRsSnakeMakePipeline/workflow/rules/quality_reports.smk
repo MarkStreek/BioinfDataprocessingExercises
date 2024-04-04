@@ -53,7 +53,7 @@ rule plot_reads:
     input:
         "results/mapped/{accession}.sam"
     output:
-        "results/plots/{accession}_reads.jpg"
+        report("results/plots/{accession}_reads.jpg", caption="", category="final_visualization")
     log:
         "logs/plots/{accession}.log"
     message:
