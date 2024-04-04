@@ -26,9 +26,6 @@ rule all:
         expand("results/fastqc/{accession}_2_fastqc.html", accession=config['accessions']),
         # Calling the last vizualisation file of the pipeline
         expand("results/plots/{accession}_reads.jpg", accession=config['accessions']),
-        # # SAMPLES
-        # expand(config["samples_directory"] + "{accession}_1.fastq", accession=config['accessions']),
-        # expand(config["samples_directory"] + "{accession}_2.fastq", accession=config['accessions']),
 
 # Include all the rules from the seperate files
 include: "rules/data_aqcuisition.smk"

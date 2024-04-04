@@ -24,7 +24,7 @@ rule get_fastq_pe:
     log:
         "logs/download/{accession}.log"
     message:
-        "Downloading {accession} from the NCBI Archive"
+        "Downloading sample from the NCBI Archive"
     params:
         extra="--skip-technical --verbose"
     threads:
