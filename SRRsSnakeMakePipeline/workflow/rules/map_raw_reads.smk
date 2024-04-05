@@ -72,6 +72,7 @@ DATE: 2024-04-05
 #             ".rev.1.bt2",
 #             ".rev.2.bt2",
 #         ),
+
 #     output:
 #         "results/mapped/{accession}.bam"
 #     log:
@@ -89,7 +90,8 @@ rule bowtie2_index:
     input:
         "results/trinity/trinity_{accession}.Trinity.fasta",
     output:
-        "results/bowtie2/trinity_{accession}.Trinity.fasta",
+        expand("results/bowtie2/trinity_{accession}.Trinity.fasta{ext}",
+            ext=[".1.bt2", ".2.bt2", ".3.bt2", ".4.bt2",".rev.1.bt2", ".rev.2.bt2"]),
     log:
         "logs/bowtie2/{accession}.log"
     message:
