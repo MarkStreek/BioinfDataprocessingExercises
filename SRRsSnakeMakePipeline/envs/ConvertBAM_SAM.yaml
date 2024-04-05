@@ -1,4 +1,4 @@
-name : Environment for ConvertBAM_SAM
+name : Environment for the ConvertBAM_SAM rule
 channels:
   - bioconda
   - conda-forge

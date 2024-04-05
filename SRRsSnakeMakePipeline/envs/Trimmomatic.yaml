@@ -1,4 +1,4 @@
-name: Trimmomatic conda environment
+name: Trimmomatic conda environment for trimming adapter rule
 channels:
   - bioconda
   - conda-forge

@@ -1,4 +1,4 @@
-name: FASTX_TOOLKIT conda environment
+name: FASTX_TOOLKIT conda environment for the trimming rule
 channels:
   - bioconda
   - conda-forge

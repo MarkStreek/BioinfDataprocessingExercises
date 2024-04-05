@@ -74,8 +74,6 @@ The pipeline contains the following steps:
 11. Convert the alignment file to a (readable) sam file
 12. Create a visualisation of the alignment file (how many reads are mapped to the reference genome)
 
--------
-
 ### Used tools/packages
 
 The following tools are used in this pipeline:
@@ -135,8 +133,6 @@ The project structure is as follows:
 
 There are some important steps that need to be done before running the pipeline. Make sure, you have enough storage on your machine. The pipeline downloads the data from the SRA database. This can be a lot of data.
 
--------
-
 ### Installing the pipeline
 
 Of course you need this pipeline on your local machine. Clone this repository (in a folder with enough storage) to your local machine using the following command:
@@ -152,10 +148,10 @@ The following steps are needed to be done for setting up an environment:
 1. If not already installed, install miniconda/anaconda/mamba. The process of downloading miniconda (used to create this pipeline) can be found [here](https://docs.anaconda.com/free/miniconda/miniconda-install/). The installation process is fairly easy and can be done in a few minutes.
 2. Create a new environment using the following command:
 
-```bash
-# Create a new conda environment
-conda create -n new_snake_env
-```
+  ```bash
+  # Create a new conda environment
+  conda create -n new_snake_env
+  ```
 
 3. Activate the environment using the following command:
 
@@ -198,9 +194,9 @@ pwd
 4. Paste the output of the `pwd` command in the `workdir : ` parameter.
 5. Change the `samples_directory : ` parameter to specify the path to the samples directory. This is the directory where the samples are downloaded.
 6. Specify which samples you want to download/run. The samples are specified in the `accessions : ` parameter.
-7. Additionally, change the flowing parameters to the preferred:
+7. Additionally, change the flowing parameters to your liking
    1. `threads : `: The number of threads
-   2. `memory : `: The amount of memory used
+   2. `memory : `: The amount of memory used (in GB)
 
 After these steps are done, the pipeline is ready to run. Navigate to the `BioinfDataprocessingExercises/SRRsSnakeMakePipeline` folder and run the following command:
 

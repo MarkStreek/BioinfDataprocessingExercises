@@ -1,4 +1,4 @@
-name: SortmeRNA conda environment
+name: SortmeRNA conda environment for the SortmeRNA rule
 channels:
   - bioconda
   - conda-forge
