@@ -37,6 +37,7 @@ def counted_mapped_reads(sam_file):
         
     return mapped_reads, unmapped_reads
 
+
 def plot_mapped_reads(sam_file, output_file):
     """
     Function that creates the pie chart vizualisation for the pipeline.
