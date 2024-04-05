@@ -36,11 +36,17 @@ The [SRRsSnakeMakePipeline](SRRsSnakeMakePipeline/README.md) folder contains the
 
 In short, the SRRs Gene pipeline is (free) pipeline that can be used to download and process RNA-seq data. The RNA-seq is processed using the following steps:
 
-1. Downloading the RNA-seq data using accession numbers (SRRs)
-2. Quality reports of the RNA-seq data
-3. Trimming the RNA-seq data below a certain quality threshold
-4. Trimming the RNA-seq data for adapters
-5. Remove ribosomal RNA from the RNA-seq data
-6. Assemble the RNA-seq data
+1. Downloading the data from the SRA database
+2. Quality report of the raw reads
+3. Trimming the raw reads based on a given quality score
+4. Trimming the adapter sequences given a reference file
+5. Merging the paired-end reads into one file
+6. Remvoving ribosomal RNA sequences with given databases
+7. Unmerging the single reads into two files
+8. Assembly of the reads into one fasta file
+9. Create a reference genome with the assembly
+10. Mapping the raw reads to the reference genome
+11. Convert the alignment file to a (readable) sam file
+12. Create a visualisation of the alignment file (how many reads are mapped to the reference genome)
 
 ## Go to [SRRs Gene Pipeline](SRRsSnakeMakePipeline/README.md)

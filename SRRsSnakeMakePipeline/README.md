@@ -5,7 +5,7 @@
 [![Python](https://img.shields.io/badge/python-≥3.12-brightgreen.svg?style=flat)](https://www.python.org/downloads/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://opensource.org/licenses/MIT)
 
-This directory contains the main pipeline for the course. The pipeline is (partly) reproduced from the [Scientific report - Raw transcriptomics data to gene specific SSRs: a validated free bioinformatics workflow for biologists](https://www.nature.com/articles/s41598-020-75270-8). The pipeline is a free pipeline that can be used to download and process RNA-seq data.
+This directory contains the main pipeline for the course Bioinformatics dataprocessing at Hanze University. The pipeline is (partly) reproduced from the [Scientific report - Raw transcriptomics data to gene specific SSRs: a validated free bioinformatics workflow for biologists](https://www.nature.com/articles/s41598-020-75270-8). The pipeline is a free pipeline that can be used to download and process RNA-seq data.
 
 > The pipeline takes a sample (accession number) as input and processes the data as described below. The output of the pipeline is a pie chart that shows the percentage of reads that are mapped to the (own-assembled) reference genome.
 
@@ -14,12 +14,15 @@ This directory contains the main pipeline for the course. The pipeline is (partl
 3. It accepts **only** SRR accession numbers as input.
 4. The pipeline is created using Snakemake.
 
-------
+<!-- <details>
+<summary>Show table of contents</summary> -->
 
-<details>
-<summary>Show table of contents</summary>
+-------
+
+## Table of contents
 
 - [SRRsSnakeMakePipeline](#srrssnakemakepipeline)
+  - [Table of contents](#table-of-contents)
   - [Quick start](#quick-start)
   - [Short description of the pipeline](#short-description-of-the-pipeline)
     - [Used tools/packages](#used-toolspackages)
@@ -31,10 +34,11 @@ This directory contains the main pipeline for the course. The pipeline is (partl
     - [Setting up the environment](#setting-up-the-environment)
     - [Setting up parameters and paths](#setting-up-parameters-and-paths)
   - [Graphical overview of the pipeline](#graphical-overview-of-the-pipeline)
+  - [Running on SLURM cluster](#running-on-slurm-cluster)
   - [Example output](#example-output)
   - [Troubleshooting](#troubleshooting)
 
-</details>
+-------
 
 ## Quick start
 
@@ -46,9 +50,14 @@ snakemake -c all --use-conda --conda-frontend conda
 
 > ATTENTION: There are several steps that are needed to be done before running the pipeline. These steps are mentioned below. [Go to steps](#important-steps-before-running-the-pipeline)
 
+-------
+
 ## Short description of the pipeline
 
-As mentioned above, the pipeline is a free pipeline that processes RNA-seq data. Nowadays, NGS data can be sequenced at a fairly low cost. However, many tools to proces this data are commercial and very expensive. Therefore, it's still a challenge to process the data in a cost-effective way. Most bioinformatics tools are fairly standalone. In this project, a de novo transcription pipeline is highlighted.
+As mentioned above, the pipeline is a free pipeline that processes RNA-seq data. 
+Nowadays, NGS data can be sequenced at a fairly low cost. However, many tools to proces this data are commercial and very expensive. 
+Therefore, it's still a challenge to process the data in a cost-effective way. Most bioinformatics tools are fairly standalone. 
+In this project, a de novo transcription pipeline is highlighted.
 
 The pipeline contains the following steps:
 
@@ -65,22 +74,24 @@ The pipeline contains the following steps:
 11. Convert the alignment file to a (readable) sam file
 12. Create a visualisation of the alignment file (how many reads are mapped to the reference genome)
 
+-------
+
 ### Used tools/packages
 
 The following tools are used in this pipeline:
 
-- ![Static Badge](https://img.shields.io/badge/FastQC-0.11.9-green)
-- ![Static Badge](https://img.shields.io/badge/sra_tools-3.1.0-green)
-- ![Static Badge](https://img.shields.io/badge/pigz-2.8-green)
-- ![Static Badge](https://img.shields.io/badge/pbzip2-1.1.13-green)
-- ![Static Badge](https://img.shields.io/badge/snakemake_wrapper_utils-0.6.2-green)
-- ![Static Badge](https://img.shields.io/badge/trinity-2.15.1-green)
-- ![Static Badge](https://img.shields.io/badge/fastx_toolkit-0.0.14-green)
-- ![Static Badge](https://img.shields.io/badge/sortmerna-4.3.6-green)
-- ![Static Badge](https://img.shields.io/badge/bowtie2-2.5.3-green)
-- ![Static Badge](https://img.shields.io/badge/samtools-1.19.2-green)
-- ![Static Badge](https://img.shields.io/badge/pysam-0.22.0-blue)
-- ![Static Badge](https://img.shields.io/badge/matplotlib-3.8.3-blue)
+![Static Badge](https://img.shields.io/badge/FastQC-0.11.9-green)
+![Static Badge](https://img.shields.io/badge/sra_tools-3.1.0-green)
+![Static Badge](https://img.shields.io/badge/pigz-2.8-green)
+![Static Badge](https://img.shields.io/badge/pbzip2-1.1.13-green)
+![Static Badge](https://img.shields.io/badge/snakemake_wrapper_utils-0.6.2-green)
+![Static Badge](https://img.shields.io/badge/trinity-2.15.1-green)
+![Static Badge](https://img.shields.io/badge/fastx_toolkit-0.0.14-green)
+![Static Badge](https://img.shields.io/badge/sortmerna-4.3.6-green)
+![Static Badge](https://img.shields.io/badge/bowtie2-2.5.3-green)
+![Static Badge](https://img.shields.io/badge/samtools-1.19.2-green)
+![Static Badge](https://img.shields.io/badge/pysam-0.22.0-blue)
+![Static Badge](https://img.shields.io/badge/matplotlib-3.8.3-blue)
 
 Pysam and Matplotlib are python tools and have to be installed using pip3. The exact steps are mentioned in the [important steps before running the pipeline](#important-steps-before-running-the-pipeline) section.
 
@@ -94,6 +105,8 @@ Conda is the environment manager that is used to create the environments for the
 
 The tools are stored inside channels. The channels are defined in a .yaml file. Snakemake uses this file to create the environments. It looks inside the files for which channels are needed and installs the tools from the channels.
 
+-------
+
 ## Project structure
 
 The project structure is as follows:
@@ -103,12 +116,12 @@ The project structure is as follows:
 |-- adapters
 |-- config
 |-- envs
-|   |-- environments directories...
+|   |-- *
 |-- images
 |-- logs
-|   |-- logging directories...
+|   |-- *
 |-- results
-|   |-- results directories...
+|   |-- *
 |-- sortme_references
 `-- workflow
     |-- rules
@@ -116,9 +129,13 @@ The project structure is as follows:
     `-- scripts
 ```
 
+-------
+
 ## Important steps before running the pipeline
 
 There are some important steps that need to be done before running the pipeline. Make sure, you have enough storage on your machine. The pipeline downloads the data from the SRA database. This can be a lot of data.
+
+-------
 
 ### Installing the pipeline
 
@@ -195,6 +212,8 @@ Make sure, you still have the environment activated. The pipeline will start run
 
 > All the pipeline results are placed in the `results/` folder. Logs can be found in the `logs/` folder.
 
+-------
+
 ## Graphical overview of the pipeline
 
 <center>
@@ -202,6 +221,26 @@ Make sure, you still have the environment activated. The pipeline will start run
 ![Alt Text](dag.png)
 
 </center>
+
+-------
+
+## Running on SLURM cluster
+
+This pipeline could be runned via a SLURM cluster. If you're on the Hanze BIN network, you can run the pipeline on the SLURM cluster. The pipeline is already set up to run on the SLURM cluster. The only thing that needs to be done is installing the snakemake-executor-plugin-slurm package. This package is used to run the pipeline on the SLURM cluster. The package can be installed using the following command (make sure you have the environment activated):
+
+```bash
+pip install snakemake-executor-plugin-slurm
+```
+
+After the package is installed, the pipeline can be run on the SLURM cluster using the following command:
+
+```bash
+snakemake --profile slurm
+```
+
+Don't forget you navigate to the `BioinfDataprocessingExercises/SRRsSnakeMakePipeline` folder before running the command.
+
+-------
 
 ## Example output
 
@@ -214,7 +253,13 @@ accessions :
 
 Output visualization:
 
+<center>
+
 ![Alt Text](results/plots/SRR2541811_reads.jpg)
+
+</center>
+
+-------
 
 ## Troubleshooting
 
