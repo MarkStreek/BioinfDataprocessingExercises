@@ -2,8 +2,5 @@ name : Environment for ConvertBAM_SAM
 channels:
   - bioconda
   - conda-forge
-  - nodefaults
 dependencies:
   - samtools
-  - bowtie2
-  - snakemake-wrapper-utils
