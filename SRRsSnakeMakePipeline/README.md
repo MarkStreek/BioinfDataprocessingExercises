@@ -35,6 +35,7 @@ This directory contains the main pipeline for the course Bioinformatics dataproc
     - [Setting up parameters and paths](#setting-up-parameters-and-paths)
   - [Graphical overview of the pipeline](#graphical-overview-of-the-pipeline)
   - [Running on SLURM cluster](#running-on-slurm-cluster)
+  - [Snakemake report](#snakemake-report)
   - [Example output](#example-output)
   - [Troubleshooting](#troubleshooting)
 
@@ -111,20 +112,33 @@ The project structure is as follows:
 
 ```bash
 .
-|-- adapters
-|-- config
-|-- envs
-|   |-- *
-|-- images
-|-- logs
-|   |-- *
-|-- results
-|   |-- *
-|-- sortme_references
-`-- workflow
-    |-- rules
-    |-- Snakefile
-    `-- scripts
+├── README.md
+├── adapters
+│   ├── *
+├── config
+│   └── config.yaml
+├── dag.jpg
+├── dag.png
+├── report.html
+├── envs
+│   ├── *
+├── images
+├── logs
+│   ├── *
+├── report
+│   ├── *
+├── results
+│   ├── *
+├── slurm
+│   └── config.yaml
+├── sortme_references
+│   ├── *
+└── workflow
+    ├── Snakefile
+    ├── rules
+    │   ├── *
+    └── scripts
+        ├── *
 ```
 
 -------
@@ -214,7 +228,7 @@ Make sure, you still have the environment activated. The pipeline will start run
 
 <center>
 
-![Alt Text](dag.png)
+![DAG Overview](dag.jpg)
 
 </center>
 
@@ -235,6 +249,21 @@ snakemake --profile slurm
 ```
 
 Don't forget you navigate to the `BioinfDataprocessingExercises/SRRsSnakeMakePipeline` folder before running the command.
+
+-------
+
+## Snakemake report
+
+You could make a report of the pipeline using the folowing command:
+
+```bash
+snakemake --report report.html
+```
+
+This will create a html report named `report.html` in the `BioinfDataprocessingExercises/SRRsSnakeMakePipeline` folder. 
+In this report, you can (interactively) see the steps that are done in the pipeline and see the final result.
+
+An example report is placed in this repo. You can view the report [report.html](report.html).
 
 -------
 

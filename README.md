@@ -16,42 +16,11 @@ The [SRRsSnakeMakePipeline](SRRsSnakeMakePipeline/README.md) folder contains the
 ```bash
 .
 ├── SRRsSnakeMakePipeline
-│   ├── adapters
-│   ├── benchmarks
-│   ├── config
-│   ├── envs
-│   ├── images
-│   ├── logs
-│   │   ├── *
-│   ├── report
-│   ├── results
-│   │   ├── *
-│   ├── slurm
-│   ├── sortme_references
-│   └── workflow
-│       ├── rules
-|       ├── Snakefile
-│       └── scripts
+│   ├── *
 ├── tutorial_01
-│   ├── config
-│   ├── images
-│   ├── resources
-│   │   └── *
-│   ├── results
-│   └── workflow
-│       ├── rules
-|       ├── Snakefile
-│       └── scripts
+│   ├── *
 └── tutorial_02
-    ├── config
-    ├── images
-    ├── resources
-    │   └── *
-    ├── results
-    └── workflow
-        ├── rules
-        ├── Snakefile
-        └── scripts
+    ├── *
 ```
 
 ## The Transcriptomic to SRRs Gene pipeline
