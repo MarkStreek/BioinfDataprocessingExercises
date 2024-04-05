@@ -79,7 +79,7 @@ rule bowtie2:
     message:
         "Aligning {input.sample} to {input.idx}"
     params:
-        extra="--local -no-unal -q",
+        extra="--local",
     threads:
         config['threads']
     wrapper:
