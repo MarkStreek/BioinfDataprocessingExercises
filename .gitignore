@@ -48,10 +48,8 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 *.zip
-*.html
 .snakemake/
 *.fastq
-results/
 idx/
 idea/
 .idea/
