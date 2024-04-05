@@ -90,8 +90,15 @@ rule bowtie2_index:
     input:
         "results/trinity/trinity_{accession}.Trinity.fasta",
     output:
-        expand("results/bowtie2/trinity_{accession}.Trinity.fasta{ext}",
-            ext=[".1.bt2", ".2.bt2", ".3.bt2", ".4.bt2",".rev.1.bt2", ".rev.2.bt2"]),
+        idx=multiext(
+            "results/bowtie2/trinity_{accession}.Trinity.fasta",
+            ".1.bt2",
+            ".2.bt2",
+            ".3.bt2",
+            ".4.bt2",
+            ".rev.1.bt2",
+            ".rev.2.bt2",
+        ),
     log:
         "logs/bowtie2/{accession}.log"
     message:
@@ -107,7 +114,15 @@ rule bowtie2_align:
     input:
         left=config["samples_directory"] + "{accession}_1.fastq",
         right=config["samples_directory"] + "{accession}_2.fastq",
-        idx="results/bowtie2/trinity_{accession}.Trinity.fasta",
+        idx=multiext(
+            "results/bowtie2/trinity_{accession}.Trinity.fasta",
+            ".1.bt2",
+            ".2.bt2",
+            ".3.bt2",
+            ".4.bt2",
+            ".rev.1.bt2",
+            ".rev.2.bt2",
+        ),
     output:
         "results/mapped/{accession}.bam"
     log:
