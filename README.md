@@ -14,22 +14,44 @@ The directories *tutorial_01* and *tutorial_02* are tutorials for the course. In
 The [SRRsSnakeMakePipeline](SRRsSnakeMakePipeline/README.md) folder contains the main pipeline for the course. Some more information about the pipeline is provided below.
 
 ```bash
-|-- SRRsSnakeMakePipeline
-|   |-- adapters
-|   |-- benchmarks
-|   |-- config
-|   |-- envs
-|   |-- images
-|   |-- logs
-|   |-- results
-|   |-- slurm
-|   |-- sortme_references
-|   `-- workflow
-        |-- rules
-        |   |-- download2.smk
-        |-- scripts
-        |   `-- script1.py
-        `-- Snakefile
+.
+├── SRRsSnakeMakePipeline
+│   ├── adapters
+│   ├── benchmarks
+│   ├── config
+│   ├── envs
+│   ├── images
+│   ├── logs
+│   │   ├── *
+│   ├── report
+│   ├── results
+│   │   ├── *
+│   ├── slurm
+│   ├── sortme_references
+│   └── workflow
+│       ├── rules
+|       ├── Snakefile
+│       └── scripts
+├── tutorial_01
+│   ├── config
+│   ├── images
+│   ├── resources
+│   │   └── *
+│   ├── results
+│   └── workflow
+│       ├── rules
+|       ├── Snakefile
+│       └── scripts
+└── tutorial_02
+    ├── config
+    ├── images
+    ├── resources
+    │   └── *
+    ├── results
+    └── workflow
+        ├── rules
+        ├── Snakefile
+        └── scripts
 ```
 
 ## The Transcriptomic to SRRs Gene pipeline
