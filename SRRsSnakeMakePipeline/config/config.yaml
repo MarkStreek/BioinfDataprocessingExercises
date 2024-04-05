@@ -2,7 +2,7 @@
 
 # -------- Working directory path --------
 # The path to the working directory where the pipeline will be executed
-# This path must be an absolute path to the root of the folder.
+# This path must be an absolute path to the root of the folder. No slash (/) at the end of the path.
 # Make sure, the path ends not in tutorial 01 or tutorial 02, but SRRsSnakeMakePipeline
 # Example: /home/user/BioinfDataprocessingExercises/SRRsSnakeMakePipeline
 workdir : /students/2023-2024/Thema11/mvandestreek_snakemake/BioinfDataprocessingExercises/SRRsSnakeMakePipeline
@@ -19,12 +19,12 @@ rRNA_databases : /sortme_references/
 
 # -------- Samples / accessions numbers --------
 accessions :
-  - SS
-  #- SRR2541811
+  #- <Input accession numbers below>
+  - SRR2541811
 
 # -------- Technical properties --------
 # The number of threads to use for the pipeline
 # The amount of memory to use for the pipeline, in gigabytes
 # Make sure you use the correct values for your system, otherwise the pipeline will fail
 threads : 30
-memory_gb : 64
+memory_gb : 250
